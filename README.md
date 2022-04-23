@@ -130,7 +130,7 @@ Don't assign a type if it can be infered by TypeScript.
 
 Any JavaScript object, more specific types (type of object) are possible.
 
-A TypeScript object can have a type same as his attributes and methods.
+A TypeScript object can have the same type as his attributes and methods.
 
 <br>
 
