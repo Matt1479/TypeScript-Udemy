@@ -4,7 +4,7 @@ Learning TypeScript from Udemy course.
 
 Below you can find my notes:
 
-## **Section 01**
+## **Section 01: Getting Started**
 
 ### What is TypeScript?
 
@@ -54,7 +54,7 @@ Compile the .ts file: tsc file.ts
 <br><br>
 <br><br>
 
-## **Section 02**
+## **Section 02: TypeScript Basics & Basic Types**
 
 **Using Types**
 
@@ -434,3 +434,224 @@ generateError("An error occured", 500);
 ```
 
 Having utility functions like this can be pretty useful in bigger applications, where you wouldn't manually throw an error in 10 different places of your app, but where you want to reach out to one convenient function that builds the error object. So you can call this function with different inputs whenever you'd want to throw an error.
+
+<br><br>
+<br><br>
+
+## **Section 03: The TypeScript Compiler (and its Configuration)**
+
+**Module Introduction**
+
+**Using "Watch Mode"**
+
+`tsc app.ts -w`
+
+or
+
+`tsc app.ts --watch`
+
+Don't quit this watch mode process whilst developing. You can quit thereafter via `CTRL + C`.
+
+**Compiling the Entire Project / Multiple Files**
+
+First initialize TypeScript project: `tsc --init`
+
+Now type (into the bash): `tsc`
+
+Or use watch mode: `tsc -w`
+
+<br>
+
+JavaScript modules
+
+JavaScript module is a code from another file that was exported.
+This allows other files to use `import {}` statement to import this file as a dependency(3rd party code that your app needs)
+
+So a module is a file that exports some code (it's own code)
+
+Modules:
+
+Name Export: `export const name = 'value'` --> Name Import: `import { name } from '...'`
+
+check this <a href="https://www.samanthaming.com/tidbits/79-module-cheatsheet/">Module Cheatsheet</a>
+
+The export is "tree shakable" which means you only import what you need, shake off the rest.
+
+consumer looks like this: `import { someFeature } from './package';`
+
+<br>
+
+Array Map
+
+Create a new **Array[]**,
+
+by calling a **function** on each element in a different **Array[]**
+
+In other words it's just a loop where the goal of that loop is to create a new array (whose values could be changed).
+
+<br>
+<br>
+
+**Including & Excluding Files**
+
+Exclude files in the `tsconfig.json` file:
+
+```
+  "exclude": [
+    "filename.ts"
+  ]
+```
+
+you can use wildcards:
+
+```
+  "exclude": [
+    "*.dev.ts"
+  ]
+```
+
+Include files in the `tsconfig.json` file:
+
+```
+"include": [
+  "app.ts",
+  "someFolder"
+]
+```
+
+Include individual files:
+
+```
+"files": [
+  "someFile.ts"
+]
+```
+
+**Setting a Compilation Target**
+
+In the `"compilerOptions: {}" (in the tsconfig.json) file we can set up how our TypeScript code is compiled. So not only which files are going to be compiled, but also how the files that are going to be compiled are treated by TypeScript.
+
+**`"target"`**: which JS version you want to compile the code into.
+
+("es5" == var)
+("es6+" == let, const etc)
+
+The newer the version is the better the code is (more concise).
+
+<br>
+
+**`"lib"`**: library files (for example you use es5 and want some es6 features(API))
+
+for example:
+
+```
+"lib": [
+  "dom",
+  "es6",
+  "dom.iterable",
+  "scripthost"
+]
+```
+
+<br>
+
+**`"allowJs"`**: Include JavaScript files in the compilation
+
+**`"checkJs"`**: Check for errors in JS files
+
+This could be useful if you for example want to use JS only, but you want some TypeScript features.
+
+<br>
+
+**`"declaration/declarationMap"`**: creating your own library files
+
+<br>
+
+**`"sourceMap: true"`**: add .ts files to source-list (in the browser) - helps with debugging.
+
+<br>
+
+dist folder == output folders (e.g. JS files)
+src folder == (e.g. TypeScript files)
+
+**`"rootDir"`**: Here are the files that are going to be compiled (src folder / TS files)
+
+**`"outDir"`**: Here the created files are stored (dist folder/JS files)
+
+<br>
+
+**`"removeComments: true"`**: this will remove all the comments in the JS file
+
+<br>
+
+**`"noEmit: true"`**: prevent creating JS files
+
+<br>
+
+**`"downlevelIteration: true"`**: uncomment this if your code is working differently after compiling (the loops).
+
+<br>
+
+**`"noEmitOnError"`**: true - stop emitting files on compilation errors
+
+<br>
+<br>
+
+**Strict options**
+
+**`"strict: true"`**: sets all the strict options to true
+
+**`"noImplicitAny"`**: ensures that we have to be clear about parameters/values that we're working with in our code.
+
+**`"strictNullChecks"`**: allow potentially null falues (if you set it to false)
+
+**`"strictBindCallApply"`**: it helps working with the `call()`, `bind()`, `apply()` methods (easier error finding)
+
+**`"strictPropertyInitialization"`** & **`"strictFunctionTypes"`** is useful for working with classes and objects and so on.
+
+**`"alwaysStrict"`**: always use strict in JS files (if set to true)
+
+<br>
+
+**Code Quality Options**
+
+Additional checks
+
+`noUnused(Locals/Parameters)`: TS is gonna throw an error if you have unused variables, paramters etc.
+
+`noImplicitReturns`: TS is gonna throw an error if for example a function should return something, but it doesn't return anything.
+
+<br>
+
+SourceMapOptions: extra file options (rootDir, outDir), typically you leave it as it is.
+
+For more check the <a href="https://www.typescriptlang.org/docs/handbook/intro.html">documentation</a>
+
+<br>
+
+**Debugging with Visual Studio Code**
+
+Start debugging inside of VS Code:
+
+F5
+
+or
+
+CTRL + SHIFT + D
+
+<br>
+
+#### **Useful Resources & Links**
+
+Attached you find all the code snapshots for this module - you also find them attached to individual lectures throughout this module.
+
+These links might also be interesting:
+
+<a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">tsconfig Docs</a>
+
+<a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">Compiler Config Docs</a>
+
+<a href="https://code.visualstudio.com/docs/typescript/typescript-debugging">VS Code TS Debugging</a>
+
+<br><br>
+<br><br>
