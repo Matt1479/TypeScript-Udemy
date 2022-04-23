@@ -275,7 +275,7 @@ Adding a + in front of each variable converts it into a number type: `return +nu
 
 **Type Aliases / Custom Types**
 
-You create your own types:
+With Aliases you can create your own types:
 
 `type Combinable = number | string;` (and any type setup, including literal types etc)
 
