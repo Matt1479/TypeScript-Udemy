@@ -114,7 +114,7 @@ The core primitive types in TypeScript are all lowercase: string, number, etc an
 
 Type Assignment = you assign types explicitly (`num1: number, str1: string`, etc)
 
-Type Inference = TypeScript automatically asigns types e.g.: `let x = 5;` will be type of number
+Type Inference = TypeScript automatically assigns types e.g.: `let x = 5;` will be type of number
 
 <br>
 
