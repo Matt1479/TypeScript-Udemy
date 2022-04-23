@@ -29,6 +29,8 @@ Advantages of TypeScript:
     - Rich Configuration Options
     - Modern Tooling that helps even in non-TypeScript Projects
 
+Metaprogramming is a programming technique in which computer programs have the ability to treat other programs as their data. It means that a program can be designed to read, generate, analyze or transform other programs, and even modify itself while running.
+
 Add an exclamation mark to let TypeScript know that this is a element, that will never yield NULL
 
 <br>
