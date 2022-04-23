@@ -46,6 +46,8 @@ npm start
 
 It works the same as Live Server
 
+Compile the .ts file: tsc file.ts
+
 <br><br>
 <br><br>
 
@@ -258,3 +260,173 @@ function combine(input1: number | string, input2: number | string) {
 <br>
 
 **Literal Types**
+
+Exact value, like `const number2 = 2.8;`, so it's not just a number, but a specific number
+
+or `const someString = 'string';`
+
+Adding a + infront of each variable converts it into a number type.
+
+<br>
+
+**Type Aliases / Custom Types**
+
+You create your own types:
+
+`type Combinable = number | string;` (and any type setup, including literal types etc)
+
+It could save some extra code.
+
+**Type Aliases & Object Types**
+
+Type aliases can be used to "create" your own types. You're not limited to storing union types though - you can also provide an alias to a (possibly complex) object type. For example:
+
+`type User = { name: string; age: number };`
+`const u1: User = { name: 'Max', age: 30 }; // this works!`
+
+This allows you to avoid unnecessary repetition and manage types centrally.
+
+For example you can simplify this code:
+
+```
+function greet(user: { name: string; age: number }) {
+  console.log('Hi, I am ' + user.name);
+}
+
+function isOlder(user: { name: string; age: number }, checkAge: number) {
+  return checkAge > user.age;
+}
+```
+
+To:
+
+```
+type User = { name: string; age: number };
+
+function greet(user: User) {
+  console.log('Hi, I am ' + user.name);
+}
+
+function isOlder(user: User, checkAge: number) {
+  return checkAge > user.age;
+}
+```
+
+<br>
+
+**Function Return Types & "void"**
+
+function return types:
+
+```
+function add(n1: number, n2: number): number { // <- explicitly return assigning type
+  return n1 + n2;
+}
+```
+
+void-type function (procedure, a function that doesn't have a `return` keyword):
+
+```
+function printResult(num: number): void { // explicitly assigning a void type, normally TypeScript would infer that type
+  console.log("Result: " + num);
+}
+```
+
+**Functions as Types**
+
+```
+combineValues = add; // add() is a function
+
+console.log(combineValues(8, 8));
+```
+
+You can store a pointer to a function inside a variable.
+
+<br>
+
+Assigning Function Type(but without typing):
+
+`let combineValues: Function;`
+
+<br>
+
+Assigning a Function Type with Typing:
+
+`let combineValues: (a: number, b: number) => number;`
+
+Now `combineValues` should accept any function that takes 2 parameters where each parameter is a number and where the function overall then returns a number.
+
+```
+combineValues = add;
+combineValues = printResult; // this will throw an error of course!
+```
+
+**Function Types & Callbacks**
+
+(A JavaScript callback is a function which is to be executed after another function has finished execution)
+
+Let's create this function:
+
+```
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+  const result = n1 + n2;
+  cb(result); // cb == callback
+}
+```
+
+And call this function:
+
+```
+addAndHandle(10, 20, (result) => {
+  console.log(result);
+});
+```
+
+In that case parameters are enforced and the return type isn't (since it's a void/procedure).
+
+<br>
+
+Callback functions can return something even if the argument on which they're passed does not expect a returned value.
+
+<br>
+<br>
+
+**The "unknown" type**
+
+`let userInput: unknown;`
+
+`unknown` type is different to `any` type,
+it's better to use `unknown` type over `any` type, because you atleast have _some_ type checking
+
+for example, in this case we don't know if the userInput is going to be string or a number, so we assign a `unknown` type:
+
+```
+let userInput: unknown;
+let userName: string;
+
+userInput = 5;
+userInput = "str";
+if (typeof userInput === "string") { // this needs extra type checking, otherwise it'll throw an error
+  userName = userInput;
+}
+```
+
+So `unknown` shouldn't be really used, but it's better than type `any`. Usually you'd just use Union type or Alias type.
+
+<br>
+
+**The "never" Type**
+
+The "never" function type never returns any values:
+
+```
+function generateError(message: string, code: number): never {
+  throw { errorMessage: message, errorCode: code };
+}
+
+generateError("An error occured", 500);
+```
+
+Having utility functions like this can be pretty useful in bigger applications, where you wouldn't manually throw an error in 10 different places of your app, but where you want to reach out to one convenient function that builds the error object. So you can call this function with different inputs whenever you'd want to throw an error.
+
+**Wrap Up**
