@@ -406,7 +406,9 @@ let userName: string;
 
 userInput = 5;
 userInput = "str";
-if (typeof userInput === "string") { // this needs extra type checking, otherwise it'll throw an error
+
+// this needs extra type checking, otherwise it'll throw an error
+if (typeof userInput === "string") {
   userName = userInput;
 }
 ```
@@ -428,5 +430,3 @@ generateError("An error occured", 500);
 ```
 
 Having utility functions like this can be pretty useful in bigger applications, where you wouldn't manually throw an error in 10 different places of your app, but where you want to reach out to one convenient function that builds the error object. So you can call this function with different inputs whenever you'd want to throw an error.
-
-**Wrap Up**
