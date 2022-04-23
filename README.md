@@ -269,7 +269,7 @@ Exact value, like `const number2 = 2.8;`, so it's not just a number, but a speci
 
 or `const someString = 'string';`
 
-Adding a + infront of each variable converts it into a number type.
+Adding a + in front of each variable converts it into a number type: `return +num1 + +num2; // this is going to be a type of number`
 
 <br>
 
