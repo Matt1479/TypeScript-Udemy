@@ -88,7 +88,7 @@ Boolean-ish
 
 Falsy/Falsey: null, undefined, 0, false, '', "", NaN
 
-Truthy: every other number than 0 unless it's defined as falsy.
+Truthy: every number other than 0 unless it's defined as falsy.
 
 <br>
 
