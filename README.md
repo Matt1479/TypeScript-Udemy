@@ -655,3 +655,7 @@ These links might also be interesting:
 
 <br><br>
 <br><br>
+
+## **Section 04: Next-generation JavaScript and TypeScript**
+
+Later...
