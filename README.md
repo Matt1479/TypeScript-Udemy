@@ -40,6 +40,7 @@ Add an exclamation mark to let TypeScript know that this is a element, that will
 Installing lite server:
 
 npm init
+
 npm install --save-dev lite-server
 
 Then add this to package.json: "start": "lite-server"
@@ -86,6 +87,7 @@ These are not the "truthy" or "falsy" values
 Boolean-ish
 
 Falsy/Falsey: null, undefined, 0, false, '', "", NaN
+
 Truthy: every other number than 0 unless it's defined as falsy.
 
 <br>
