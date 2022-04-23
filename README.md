@@ -192,7 +192,7 @@ So you have an object type in an object type so to say.
 <br>
 <br>
 
-**Arrays Types**
+**Array Types**
 
 #### Type **array**
 
