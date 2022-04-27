@@ -847,6 +847,53 @@ const { fName: userName, age } = person;
 console.log(userName, age); // changed the fName value to userName (this is JS syntax)
 ```
 
-You can check the files from this Section.
+**You can check the files from this Section.**
 
-NEXT: Section 5...
+<br><br>
+<br><br>
+
+## Section-05: Classes & Interfaces
+
+<br>
+
+_Classes & Instances_
+
+Objects: instances of classes == based on classes
+
+Classes: blueprints for objects
+
+<br>
+
+<small>(npm start & tsc -w)</small>
+
+**Creating a Class**
+
+```
+class Department {
+  name: string;
+
+  constructor(n: string) {
+    this.name = n;
+  }
+}
+
+// creating instance of a class - object
+const accounting = new Department("Accounting"); // constructor arguments inside of ()
+
+console.log(accounting);
+// output:
+Object { name: "Accounting" }
+name: "Accounting"
+```
+
+<br>
+
+**Compiling to JavaScript**
+
+In ES6 the code is almost the same (except for types of course),
+below ES6 there's a lot of differences, for example constructor functions.
+
+<br>
+<br>
+
+**Constructor Functions & The "This" Keyword**
