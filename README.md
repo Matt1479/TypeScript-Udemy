@@ -658,4 +658,195 @@ These links might also be interesting:
 
 ## **Section 04: Next-generation JavaScript and TypeScript**
 
-Later...
+<br>
+
+Supported JS/TS <a href="https://kangax.github.io/compat-table/es6/">features</a> in different browsers.
+
+<br>
+
+### **Arrow Functions**
+
+The syntax:
+
+```
+const add = (a: number, b: number) => {
+  return a + b;
+}
+```
+
+<br>
+
+**Default Function Parameters**
+
+set default function parameters last.
+
+<br>
+
+**The Spread Operator**
+
+```
+const hobbies = ["Sports", "Cooking"];
+const activeHobbies = ["Hiking"];
+
+// you can also copy values when creating a new arrays:
+const activeHobbies = ["Hiking", ...hobbies]; // this push "Sports" and "Cooking" into that array
+
+activeHobbies.push(...hobbies); // ... - spread operator
+
+// result:
+Array(3) [ "Hiking", "Sports", "Cooking" ]
+​
+0: "Hiking"
+​
+1: "Sports"
+​
+2: "Cooking"
+​
+length: 3
+​
+<prototype>: Array []
+```
+
+Spread will **pull out** all the elements off an array and add them as a **list of individial values** in the place where you used that operator (here as a list of values to push()).
+
+So whenever you need a comma separated list of values, you can use spread operator (...) with an array.
+
+<br>
+
+**Using spread operator to copy objects**
+
+```
+const person = {
+  name: 'Mark',
+  age: 28
+};
+
+const copiedPerson = { ...person }; // copying the person object
+```
+
+So what it does is pulls out all the values and puts them into the new constant (copies).
+
+<br>
+
+**Rest Parameters**
+
+```
+// rest operator == flexible functions
+
+const add = (...numbers: number[]) => {
+  let result = 0;
+  return numbers.reduce((currentResult, currentValue) => {
+    return currentResult + currentValue;
+  }, 0);
+};
+
+const addedNumbers = add(5, 10, 2, 3.7);
+console.log(addedNumbers);
+
+// the spread operator (...numbers: number[]) will merge all incoming parameters / list of values into an array
+
+// reduce() method: performs operation on every element of an array,
+// returns a result and then adds this results together.
+```
+
+Rest parameters is useful for accepting an unlimited amount of arguments.
+
+<br>
+<br>
+
+<a href="https://academind.com/tutorials/reference-vs-primitive-values">Reference vs Primitive values</a>
+
+<br>
+
+Copying **Arrays**:
+
+1. the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">`slice()`</a> method:
+
+```
+let hobbies = ['Sports', 'Cooking'];
+let copiedHobbies = hobbies.slice();
+```
+
+It basically returns a new array which contains all new elements of the old element, starting at the starting index you passed (and then up to the max number of elements you defined). If you just call **`slice()`** method, without arguments, **you get a new array with all elements of the old array**.
+
+<br>
+
+2. The <a href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/operators/spread_syntax">spread</a> operator (...)
+
+If you're using ES6+, you can use the spread operator.
+
+```
+let hobbies = ['Sports', 'Cooking'];
+let copiedHobbies = [...hobbies];
+```
+
+<br>
+
+Copying **Objects**:
+
+1. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign">`Object.assign()`</a>
+
+You can use the `Object.assign()`.
+
+```
+let person = { name: 'Mark' };
+let copiedPerson = Object.assign({}, person);
+```
+
+This syntax creates a new object (the {} part) and assigns all properties of the old object (the second argument) to that newly created one. This creates a copy.
+
+<br>
+
+2. Just as with arrays, you can also use the spread operator on objects:
+
+```
+let person = { name: 'Mark' };
+let copiedPerson = { ...person };
+```
+
+This will also create a new object (because you used { } ) and will then pull all properties of `person` out of it, into the brand-new objects.
+
+<br>
+
+More about cloning strategies <a href="https://redux.js.org/usage/structuring-reducers/immutable-update-patterns#immutable-update-patterns">here</a> (copying nested arrays, objects etc).
+
+<br>
+<br>
+
+**Array & Object Destructing**
+
+Arrays:
+
+```
+const hobbies = ["Sports", "Cooking"];
+const activeHobbies = ["Hiking"];
+
+// destructure = pull elements of out the array, in this case into separate constants
+const [hobby1, hobby2] = hobbies;
+// basic syntax: const [] = arrToDestructure;
+
+console.log(hobbies, hobby1, hobby2);
+// output: Array ["Sports", "Cooking"] "Sports" "Cooking"
+```
+
+Objects:
+
+```
+let person = {
+  fName: "Mark",
+  age: 27,
+};
+
+const { fName, age } = person; // the values should be the same
+
+console.log({fName, age}, person );
+// output: Object { fName: "Mark", age: 27 } Object { fName: "Mark", age: 27 }
+
+// overwriting the name of the values:
+const { fName: userName, age } = person;
+console.log(userName, age); // changed the fName value to userName (this is JS syntax)
+```
+
+You can check the files from this Section.
+
+NEXT: Section 5...
