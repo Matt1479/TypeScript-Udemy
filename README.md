@@ -689,7 +689,7 @@ const hobbies = ["Sports", "Cooking"];
 const activeHobbies = ["Hiking"];
 
 // you can also copy values when creating a new arrays:
-const activeHobbies = ["Hiking", ...hobbies]; // this push "Sports" and "Cooking" into that array
+const activeHobbies = ["Hiking", ...hobbies]; // this will push "Sports" and "Cooking" into that array
 
 activeHobbies.push(...hobbies); // ... - spread operator
 
