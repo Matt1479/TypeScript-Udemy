@@ -724,7 +724,7 @@ const person = {
 const copiedPerson = { ...person }; // copying the person object
 ```
 
-So what it does is pulls out all the values and puts them into the new constant (copies).
+So what it does is it pulls out all the values and puts them into the new constant (copies them).
 
 <br>
 
@@ -749,7 +749,7 @@ console.log(addedNumbers);
 // returns a result and then adds this results together.
 ```
 
-Rest parameters is useful for accepting an unlimited amount of arguments.
+Rest operator is useful for accepting an unlimited amount of arguments.
 
 <br>
 <br>
@@ -821,7 +821,7 @@ Arrays:
 const hobbies = ["Sports", "Cooking"];
 const activeHobbies = ["Hiking"];
 
-// destructure = pull elements of out the array, in this case into separate constants
+// destructure = pulling elements of out the array, in this case into separate constants
 const [hobby1, hobby2] = hobbies;
 // basic syntax: const [] = arrToDestructure;
 
@@ -846,8 +846,6 @@ console.log({fName, age}, person );
 const { fName: userName, age } = person;
 console.log(userName, age); // changed the fName value to userName (this is JS syntax)
 ```
-
-**You can check the files from this Section.**
 
 <br><br>
 <br><br>
@@ -955,4 +953,245 @@ accountingCopy.describe();
 
 <br>
 
-**...**
+**"private" and "public" Access Modifiers**
+
+private = accessible only within a class
+
+public = accessible everywhere
+
+<br>
+
+private properties, public methods (usually with validation) to modify those properties.
+
+**"readonly" keyword**
+
+the name is self-explanatory, after initialization you can't change it's value, for example an id should be readonly.
+
+<br>
+<br>
+
+**Inheritance**
+
+The syntax:
+
+`class SubClass extends BaseClass {}`
+
+The `SubClass`(child) inherits everything from the `BaseClass`(parent), even the `constructor()`
+
+<br>
+
+Whenever you want to use properties from the `BaseClass`, inside of `SubClass`, you have to add the `super()` method into the sub class' constructor. The `super()` method is used to get the properties of the base class.
+
+```
+class SubClass extends BaseClass {
+  constructor(args: string) {
+    super(args);
+  }
+}
+```
+
+<br>
+
+private methods/properties in base class are not accessible in sub class.
+
+<br>
+
+**Getters and Setters**
+
+Getter Syntax:
+
+```
+get someValueGetter() {
+  if (this.someProperty) {
+    return this.someProperty;
+  }
+}
+```
+
+A getter always returns something
+
+<br>
+
+Setter Synax:
+
+```
+get someValueSetter(value: type) {
+  if (!value) {
+    throw new Error('Invalid value!');
+  }
+  this.addSomething(value);
+}
+```
+
+<br>
+
+**Static Methods & Properties**
+
+Those are used to modify classes without needing to instantiate it (e.g `Math` class (`Math.random()` etc)). So no need to use the `new` keyword in order to modify a class.
+
+<br>
+
+Syntax:
+
+```
+static createEmployee(name: string) {
+  return { name: name };
+}
+
+const employee1 = Department.createEmployee('Mark');
+```
+
+Though you can't access static properties/methods inside the class inside properties/methods that aren't static.
+
+<br>
+
+**Abstract Classes**
+
+Syntax:
+
+`abstract someMethod(this: SomeClass): void;`
+
+<br>
+
+Abstract Classes = polymorphism
+
+<br><br>
+<br><br>
+
+## **Interfaces**
+
+<br><br>
+
+### **A First Interface**
+
+<br>
+
+What is an interface?
+
+Interface describes the structure of an object
+
+<br>
+
+Interface keyword exists only in TypeScript, here's how the syntax looks:
+
+```
+interface Person {
+  name: string;
+  age: number;
+
+  greet(phrase: string): void;
+}
+
+let user1: Person;
+
+user1 = {
+  name: 'Mark',
+  age: 23,
+  greet(phrase: string) {
+    console.log(phrase + ' ' + this.name); // `this` in this case is a reference to the object
+  }
+}
+
+user1.greet('Hi there - I am');
+```
+
+You use `interface` not as a blueprint, but as a custom type.
+
+An `interface` can't have an initializer.
+
+You only specify the head of a Method in an `interface` with the types and return type.
+
+<br>
+
+Summary:
+
+`interface` allows us to **define** the **structure of an object**. We can use it **as a type** to type check for objects that must have this (`interface`'s) structure.
+
+<br><br>
+
+### **Using Interfaces with Classes**
+
+<br>
+
+A class can implement `interface`'s features/properties and follow it's rules:
+
+```
+interface Greetable {
+  name: string;
+
+  greet(phrase: string): void;
+}
+
+// you can implement multiple interfaces
+class Person implements Greetable, AnotherInterface {
+  name: string;
+  // you can add more properties to this class:
+  age = 23;
+
+  constructor(n: string) {
+    this.name = n;
+  }
+
+  greet(phrase: string) {
+    console.log(phrase + ' ' + this.name); // `this` in this case is a reference to the object
+  }
+}
+```
+
+The `Person` class has to meet the `Greetable` `interface`'s requirements, meaning it has to have the same properties and methods, but it also can have it's own properties and methods on top of that.
+
+<br>
+
+### **Why interfaces?**
+
+You can use `interfaces` to force a class to have particular properties and methods, so you can be sure that it will have those.
+
+<br>
+
+### **Optional Paremeters & Properties**
+
+You can define optional properties in interfaces and classes:
+
+```
+interface Named {
+  outputName?: string;
+}
+```
+
+The question mark before a type means that this property might exist in classes that implement this `interface`, but it doesn't have to.
+
+<br>
+
+You can also have optional methods.
+
+```
+interface Person {
+  name: string;
+
+  greet?(): void;
+}
+```
+
+<br>
+
+This works the same in classes:
+
+```
+class Person implements Named {
+  name?: string;
+
+  constructor(n?: string) {
+    if (n) {
+      this.name = n;
+    }
+  }
+}
+```
+
+<br><br>
+<br><br>
+
+<hr>
+
+<br><br>
+<br><br>
