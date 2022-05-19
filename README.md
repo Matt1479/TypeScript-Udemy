@@ -1,8 +1,4 @@
-# TypeScript-Udemy
-
-Learning TypeScript from Udemy course.
-
-Below you can find my notes:
+# TypeScript-Udemy Notes
 
 ## **Section 01: Getting Started**
 
@@ -52,6 +48,9 @@ It works the same as Live Server
 Compile the .ts file: tsc file.ts
 
 <br><br>
+
+<hr>
+
 <br><br>
 
 ## **Section 02: TypeScript Basics & Basic Types**
@@ -436,6 +435,9 @@ generateError("An error occured", 500);
 Having utility functions like this can be pretty useful in bigger applications, where you wouldn't manually throw an error in 10 different places of your app, but where you want to reach out to one convenient function that builds the error object. So you can call this function with different inputs whenever you'd want to throw an error.
 
 <br><br>
+
+<hr>
+
 <br><br>
 
 ## **Section 03: The TypeScript Compiler (and its Configuration)**
@@ -654,6 +656,9 @@ These links might also be interesting:
 <a href="https://code.visualstudio.com/docs/typescript/typescript-debugging">VS Code TS Debugging</a>
 
 <br><br>
+
+<hr>
+
 <br><br>
 
 ## **Section 04: Next-generation JavaScript and TypeScript**
@@ -848,6 +853,9 @@ console.log(userName, age); // changed the fName value to userName (this is JS s
 ```
 
 <br><br>
+
+<hr>
+
 <br><br>
 
 ## Section-05: Classes & Interfaces
@@ -1062,11 +1070,18 @@ Abstract Classes = polymorphism
 
 <br><br>
 
+1. <a href="#intdef">Interface definition.</a>
+2. <a href="#intcls">Using interfaces with Classes.</a>
+3. <a href="#whyint">Why Interfaces?</a>
+4. <a href="#optparam">Optional Paremeters & Properties</a>
+
+<br><br>
+
 ### **A First Interface**
 
 <br>
 
-What is an interface?
+<span id="intdef">What is an interface?</span>
 
 Interface describes the structure of an object
 
@@ -1109,7 +1124,7 @@ Summary:
 
 <br><br>
 
-### **Using Interfaces with Classes**
+### **Using Interfaces with Classes** <span id="intcls"></span>
 
 <br>
 
@@ -1142,13 +1157,13 @@ The `Person` class has to meet the `Greetable` `interface`'s requirements, meani
 
 <br>
 
-### **Why interfaces?**
+### **Why interfaces?** <span id="whyint"></span>
 
 You can use `interfaces` to force a class to have particular properties and methods, so you can be sure that it will have those.
 
 <br>
 
-### **Optional Paremeters & Properties**
+### **Optional Paremeters & Properties** <span id="optparam"></span>
 
 You can define optional properties in interfaces and classes:
 
@@ -1189,9 +1204,414 @@ class Person implements Named {
 ```
 
 <br><br>
-<br><br>
 
 <hr>
 
 <br><br>
+
+## **Section 06: Advanced Types** <span id="top06"></span>
+
+<br><br>
+
+1. <a href="#a0600">Intersection Types.</a>
+2. <a href="#a0601">Type Guards.</a>
+3. <a href="#a0602">Discriminated Unions</a>
+4. <a href="#a0603">Type Casting</a>
+5. <a href="#a0604">Index Properties</a>
+6. <a href="#a0605">Function Overloads</a>
+7. <a href="#a0606">Optional Chaining</a>
+8. <a href="#a0607">Nullish Coalescing</a>
+
+<br><br>
+
+### **Intersection Types** <span id="a0600"></span><a href="#top06">&#8593;</a>
+
+<br>
+
+Interseption types allow us to combine other types:
+
+```
+type Admin = {
+  name: string;
+  privileges: string[];
+};
+
+type Employee = {
+  name: string;
+  startDate: Date; // Date Type == JavaScript Date() Object
+};
+
+type ElevatedEmployee = Admin & Employee;
+
+const emp1: ElevatedEmployee = {
+  name: 'Mark',
+  privileges: ['create-server'],
+  startDate: new Date();
+}
+```
+
+Intersection types are closely related to `interface` inheritance. This can be achieved with interfaces too:
+
+```
+interface Admin {
+  name: string;
+  privileges: string[];
+};
+
+interface Employee {
+  name: string;
+  startDate: Date; // Date Type == JavaScript Date() Object
+};
+
+interface ElevatedEmployee extends Employee, Admin {}
+
+const e1: ElevatedEmployee = {
+  name: 'Mark',
+  privileges: ['create-server'],
+  startDate: new Date();
+}
+```
+
+<br>
+
+This can be also achieved with Union types:
+
+```
+type Combinable = string | number;
+type Numeric = number | boolean;
+
+type Universal = Combinable & Numeric; // type Universal will be of type number
+```
+
+in Summary:
+
+**Objects/Interfaces** = combination of those (of their properties)
+
+**Union types** = the types they have in common
+
+<br><br>
+
+### **Type Guards** <span id="a0601"></span><a href="#top06">&#8593;</a>
+
+Type guards help us with union types. They are used to know which exact type you're getting now, at a runtime.
+
+Examples:
+
+#### if (`typeof` x === 'someType') {}
+
+```
+function add(a: Combinable, b: Combinable) {
+  if (typeof a === 'string' || typeof b === 'string') { // type guard (if)
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
+```
+
+#### if (x `in` y)
+
+```
+type UnknownEmployee = Employee | Admin;
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+  console.log('Name: ' + emp.name);
+
+  // if 'privileges' property exists in emp (employee) then...
+  if('privileges' in emp) {
+  console.log('Privileges: ' + emp.privileges);
+  }
+
+  if('startDate' in emp) {
+  console.log('Start Date: ' + emp.startDate);
+  }
+}
+
+printEmployeeInformation(e1);
+// output: Name: ..., Privileges: ..., Start Date: ...
+```
+
+#### if (x `instanceof` y)
+
+```
+class Car {
+  drive() {
+    console.log('Driving...');
+  }
+}
+
+class Truck {
+  drive() {
+    console.log('Driving a truck...');
+  }
+
+  loadCargo(amount: number) {
+    console.log('Loading cargo ...' + amount);
+  }
+}
+
+Type Vehicle = Car | Truck;
+
+const v1 = new Car();
+const v2 = new Truck();
+
+function useVehicle(vehicle: Vehicle) {
+  vehicle.drive();
+
+  if (vehicle instanceof Truck) {
+    vehicle.loadCargo(1000);
+  }
+
+//  if ('loadCargo' in vehicle) {
+//    vehicle.loadCargo(1000);
+//  }
+
+}
+
+useVehicle(v1);
+useVehicle(v2);
+```
+
+Type guards describes idea of checking if a certain property or method exists before you try to use it, or if you can do something with the type before you try to use it.
+
+Objects: `instanceof`, `in`
+
+other types: `typeof`
+
+<br>
+<br>
+
+### **Discriminated Unions** <span id="a0602"></span><a href="#top06">&#8593;</a>
+
+`Discriminated unions` is a pattern which you can use when working with `union types` that makes implementing `type guards` easier. It's available when you're working with `Object`s and `union types`.
+
+```
+interface Bird {
+  // discriminated union - used to describe that interface/object
+  type: 'bird'; // literal type
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: 'horse'; // literal type
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function MoveAnimal(animal: Animal) {
+  let speed;
+  switch (animal.type) {
+    case 'bird':
+      speed = animal.flyingSpeed;
+      break;
+    case 'horse':
+      speed = animal.runningSpeed;
+  }
+  console.log('Moving at speed: ' + speed);
+}
+
+moveAnimal({type: 'bird', flyingSpeed: 10});
+```
+
+<br><br>
+
+#### **Type Casting** <span id="a0603"></span><a href="#top06">&#8593;</a>
+
+Type casting helps you tell TypeScript that some value is of a specific type where TypeScript is not able to detect it on it's own.
+
+Example:
+
+```
+HTML:
+
+<p></p>
+
+(empty paragraph)
+
+TS:
+
+const paragraph = document.querySelector('p'); // == HTMLParagraphElement
+```
+
+In this case we could use innerText since TS knows that this is a HTMLParagraphElement.
+
+<br>
+
+Not in the case if it's a HTMLElement since TS doesn't know if this element could have innerText property.
+
+<br>
+
+`Type Casting`:
+
+```
+<input id="user-input">
+
+// ! means that this element will never yield null
+const userInputElement = <HTMLInputElement>document.getElementById('user-input')!;
+
+// this is TypeScript only feature, works differently in JSX
+
+userInputElement.value = 'hello';
+```
+
+Another method of doing this:
+
+```
+const userInputElement = document.getElementById('user-input')! as HTMLInputElement;
+```
+
+Alternative without the exclamation mark:
+
+```
+const userInputElement = document.getElementById('user-input');
+
+if (userInputElement) {
+  (userInputElement as HTMLInputElement).value = 'hello';
+}
+```
+
+<br><br>
+
+#### **Index Properties** <span id="a0604"></span><a href="#top06">&#8593;</a>
+
+```
+interface ErrorContainer {
+  // Index type:
+  [prop: string]: string;
+  // any property name which would be a string and the value which would also be a string
+}
+
+const errorBag: ErrorContainer = {
+  email: 'Not a valid email!',
+  // stringProperty: 'stringValue', as it's in the interface
+
+  username: 'Must start with a capital character!'
+}
+```
+
+Index type gives us extra flexibility so that we don't need to know in advance which property name we want to use, and how many properties we need.
+
+<br><br>
+
+#### **Function Overloads** <span id="a0605"></span><a href="#top06">&#8593;</a>
+
+Function Overloads - a feature that allows us to define multiple function signatures for one and the same function, which simply means we can have multiple possible ways of calling a function with different parameters to then do something inside of that function.
+
+<br>
+
+Use it whenever TypeScript can't infer a type on it's own.
+
+<br>
+
+Example:
+
+```
+type Combinable = string | number;
+type Numeric = number | boolean;
+
+type Universal = Combinable & Numeric; // type Universal will be of type number
+
+// we're telling TS: if we call this function and both arguments are number,
+// then this function returns a number
+// Function overload syntax:
+function add(a: number, b: number): number;
+
+function add(a: string, b: string): string;
+
+// and the other possibilities:
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
+
+function add(a: Combinable, b: Combinable) {
+  if (typeof a === 'string' || typeof b === 'string') { // type guard (if)
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
+
+const result = add('Mark', ' Smith');
+result.split(' ');
+```
+
+Overload basically means that there are other ways of calling this function.
+
+<br><br>
+
+#### **Optional Chaining** <span id="a0606"></span><a href="#top06">&#8593;</a>
+
+Optional chaining is used when you're not sure whether a certain property on an object is set or if it's undefined.
+
+For example we're fetching this data from backend:
+
+```
+const fetchedUserData = {
+  id: 'u1',
+  name: 'Mark',
+  // job: { title: 'CEO', description: 'The CEO of the company'}
+};
+
+// JavaScript way:
+console.log(fetchedUserData.job && fetchedUserData.job.title);
+
+// TypeScript way - optional chaining
+console.log(fetchedUserData?.job?.title);
+
+This tells TypeScript:
+if job property exists, then access job property,
+if title property exists, then access title property
+```
+
+Optional chaining operator `fetchedUserData?.job?.title` helps us safely access nested properties and nested objects in our object data and if the thing in front of the question mark is undefined it will not access the thing that it's after and therefore will not throw a runtime error, but instead it will just not continue.
+
+<small>
+So basically behind the scenes it's compiled into an `if ()` check which checks whatever (`fetchedUserData` property) exists before it tries to access (`job` property).
+</small>
+
+<br><br>
+
+#### **Nullish Coalescing** <span id="a0607"></span><a href="#top06">&#8593;</a>
+
+Coalesce = connect / link / join / merge / mix / unite
+
+<br>
+
+Nullish Coalescing - a TypeScript feature which helps us deal with null-ish data.
+
+<br>
+
+The Nullish Coalescing operator: `??`
+
+<br>
+
+For example we'd want to treat `null` or `undefined` values differently (compared to for example `string`, `number` etc):
+
+```
+const userInput = '';
+
+const storedData = userInput ?? 'DEFAULT';
+```
+
+`??` basically means: if this value is (only) `null` or `undefined` then use the `'DEFAULT'` fallback, if it's not `null` or `undefined`, then we'll use `userInput` value/fallback (option).
+
+<br>
+
+So console logging would look like this:
+
+```
+const userInput = '';
+const storedData = userInput ?? 'DEFAULT';
+console.log(storedData);
+//output: ''
+
+
+const userInput = undefined;
+const storedData = userInput ?? 'DEFAULT';
+console.log(storedData);
+//output: DEFAULT
+```
+
+<br><br>
+
+<hr>
+
 <br><br>
