@@ -1,8 +1,15 @@
 # TypeScript-Udemy Notes
 
-## **Section 01: Getting Started**
+## **Section 01: Getting Started** <span id="top01"></span>
 
-### What is TypeScript?
+<br><br>
+
+1. <a href="#a0100">What is TypeScript?</a>
+2. <a href="#a0101">Project setup for future sections</a>
+
+<br><br>
+
+### What is TypeScript? <span id="a0100"></span><a href="#top01">&#8593;</a>
 
 **TypeScript** is a JavaScript Superset meaning it's built on top of JavaScript.
 
@@ -31,7 +38,7 @@ Add an exclamation mark to let TypeScript know that this is a element, that will
 
 <br>
 
-### **Project setup for future sections**
+### **Project setup for future sections** <span id="a0101"></span><a href="#top01">&#8593;</a>
 
 Installing lite server:
 
@@ -53,13 +60,26 @@ Compile the .ts file: tsc file.ts
 
 <br><br>
 
-## **Section 02: TypeScript Basics & Basic Types**
+## **Section 02: TypeScript Basics & Basic Types** <span id="top02"></span>
 
-**Using Types**
+<br><br>
 
-<br>
+1. <a href="#a0200">Core Types</a>
+2. <a href="#a0201">Object Types</a>
+3. <a href="#a0202">Array Types</a>
+4. <a href="#a0203">Type Tuple, Enum, Any</a>
+5. <a href="#a0204">Union Types</a>
+6. <a href="#a0205">Literal Types</a>
+7. <a href="#a0206">Type Aliases / Custom Types</a>
+8. <a href="#a0207">Function Return Types & "void"</a>
+9. <a href="#a0208">Functions as types</a>
+10. <a href="#a0209">Functions types and callbacks</a>
+11. <a href="#a0210">The "unknown" type</a>
+12. <a href="#a0211">The "never" type</a>
 
-### **Core Types**
+<br><br>
+
+### **Core Types** <span id="a0200"></span><a href="#top02">&#8593;</a>
 
 #### Type **number**
 
@@ -121,7 +141,7 @@ Don't assign a type if it can be infered by TypeScript.
 
 <br>
 
-**Object Types**
+**Object Types** <span id="a0201"></span><a href="#top02">&#8593;</a>
 
 #### Type **object**
 
@@ -135,7 +155,7 @@ A TypeScript object can have the same type as his attributes and methods.
 
 Assigning an object type(explicitly!) to a constant:
 
-```
+```typescript
 const person: {
   name: string;
   age: number;
@@ -147,7 +167,7 @@ const person: {
 
 But it's better to let TypeScript infer the type:
 
-```
+```typescript
 const person = {
   name: "Mark",
   age: 24,
@@ -160,21 +180,21 @@ Of course object types can also be created for nested objects.
 
 Let's say you have this JavaScript object:
 
-```
+```typescript
 const product = {
-  id: 'abc1',
+  id: "abc1",
   price: 12.99,
-  tags: ['great-offer', 'hot-and-new'],
+  tags: ["great-offer", "hot-and-new"],
   details: {
-    title: 'Red Carpet',
-    description: 'A great carpet - almost brand-new!'
-  }
-}
+    title: "Red Carpet",
+    description: "A great carpet - almost brand-new!",
+  },
+};
 ```
 
 This would be the type of such an object:
 
-```
+```typescript
 {
   id: string;
   price: number;
@@ -191,7 +211,7 @@ So you have an object type in an object type so to say.
 <br>
 <br>
 
-**Array Types**
+**Array Types** <span id="a0202"></span><a href="#top02">&#8593;</a>
 
 #### Type **array**
 
@@ -207,7 +227,7 @@ Declaring a string array: `let strarr: string[];`
 
 <br>
 
-**Working with Tuples**
+**Working with Tuples** <span id="a0203"></span><a href="#top02">&#8593;</a>
 
 #### Type tuple
 
@@ -244,11 +264,11 @@ Avoid this type at all costs.
 <br>
 <br>
 
-**Union Types**
+**Union Types** <span id="a0204"></span><a href="#top02">&#8593;</a>
 
 sample syntax:
 
-```
+```ts
 function combine(input1: number | string, input2: number | string) {
   let result;
   if (typeof input1 === "number" && typeof input2 === "number") {
@@ -262,7 +282,7 @@ function combine(input1: number | string, input2: number | string) {
 
 <br>
 
-**Literal Types**
+**Literal Types** <span id="a0205"></span><a href="#top02">&#8593;</a>
 
 Exact value, like `const number2 = 2.8;`, so it's not just a number, but a specific number
 
@@ -272,7 +292,7 @@ Adding a + in front of each variable converts it into a number type: `return +nu
 
 <br>
 
-**Type Aliases / Custom Types**
+**Type Aliases / Custom Types** <span id="a0206"></span><a href="#top02">&#8593;</a>
 
 With Aliases you can create your own types:
 
@@ -291,9 +311,9 @@ This allows you to avoid unnecessary repetition and manage types centrally.
 
 For example you can simplify this code:
 
-```
+```ts
 function greet(user: { name: string; age: number }) {
-  console.log('Hi, I am ' + user.name);
+  console.log("Hi, I am " + user.name);
 }
 
 function isOlder(user: { name: string; age: number }, checkAge: number) {
@@ -303,11 +323,11 @@ function isOlder(user: { name: string; age: number }, checkAge: number) {
 
 To:
 
-```
+```ts
 type User = { name: string; age: number };
 
 function greet(user: User) {
-  console.log('Hi, I am ' + user.name);
+  console.log("Hi, I am " + user.name);
 }
 
 function isOlder(user: User, checkAge: number) {
@@ -317,27 +337,29 @@ function isOlder(user: User, checkAge: number) {
 
 <br>
 
-**Function Return Types & "void"**
+**Function Return Types & "void"** <span id="a0207"></span><a href="#top02">&#8593;</a>
 
 function return types:
 
-```
-function add(n1: number, n2: number): number { // <- explicitly return assigning type
+```ts
+function add(n1: number, n2: number): number {
+  // <- explicitly return assigning type
   return n1 + n2;
 }
 ```
 
 void-type function (procedure, a function that doesn't have a `return` keyword):
 
-```
-function printResult(num: number): void { // explicitly assigning a void type, normally TypeScript would infer that type
+```ts
+function printResult(num: number): void {
+  // explicitly assigning a void type, normally TypeScript would infer that type
   console.log("Result: " + num);
 }
 ```
 
-**Functions as Types**
+**Functions as Types** <span id="a0208"></span><a href="#top02">&#8593;</a>
 
-```
+```ts
 combineValues = add; // add() is a function
 
 console.log(combineValues(8, 8));
@@ -359,18 +381,18 @@ Assigning a Function Type with Typing:
 
 Now `combineValues` should accept any function that takes 2 parameters where each parameter is a number and where the function overall then returns a number.
 
-```
+```ts
 combineValues = add;
 combineValues = printResult; // this will throw an error of course!
 ```
 
-**Function Types & Callbacks**
+**Function Types & Callbacks** <span id="a0209"></span><a href="#top02">&#8593;</a>
 
 (A JavaScript callback is a function which is to be executed after another function has finished execution)
 
 Let's create this function:
 
-```
+```ts
 function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
   const result = n1 + n2;
   cb(result); // cb == callback
@@ -379,7 +401,7 @@ function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
 
 And call this function:
 
-```
+```ts
 addAndHandle(10, 20, (result) => {
   console.log(result);
 });
@@ -394,7 +416,7 @@ Callback functions can return something even if the argument on which they're pa
 <br>
 <br>
 
-**The "unknown" type**
+**The "unknown" type** <span id="a0210"></span><a href="#top02">&#8593;</a>
 
 `let userInput: unknown;`
 
@@ -403,7 +425,7 @@ it's better to use `unknown` type over `any` type, because you atleast have _som
 
 for example, in this case we don't know if the userInput is going to be string or a number, so we assign a `unknown` type:
 
-```
+```ts
 let userInput: unknown;
 let userName: string;
 
@@ -420,11 +442,11 @@ So `unknown` shouldn't be really used, but it's better than type `any`. Usually 
 
 <br>
 
-**The "never" Type**
+**The "never" Type** <span id="a0211"></span><a href="#top02">&#8593;</a>
 
 The "never" function type never returns any values:
 
-```
+```ts
 function generateError(message: string, code: number): never {
   throw { errorMessage: message, errorCode: code };
 }
@@ -440,11 +462,23 @@ Having utility functions like this can be pretty useful in bigger applications, 
 
 <br><br>
 
-## **Section 03: The TypeScript Compiler (and its Configuration)**
+## **Section 03: The TypeScript Compiler (and its Configuration)** <span id="top03"></span>
+
+<br>
+
+1. <a href="#a0300">Watch mode & compilation targets</a>
+2. <a href="#a0301">Including & Excluding Files</a>
+3. <a href="#a0302">Setting a Compilation Target</a>
+4. <a href="#a0303">Strict options</a>
+5. <a href="#a0304">Code Quality Options </a>
+6. <a href="#a0305">Debugging with Visual Studio Code</a>
+7. <a href="#a0306">Useful Resources & Links </a>
+
+<br><br>
 
 **Module Introduction**
 
-**Using "Watch Mode"**
+### **Using "Watch Mode"** <span id="a0300"></span><a href="#top03">&#8593;</a>
 
 `tsc app.ts -w`
 
@@ -454,7 +488,7 @@ or
 
 Don't quit this watch mode process whilst developing. You can quit thereafter via `CTRL + C`.
 
-**Compiling the Entire Project / Multiple Files**
+## **Compiling the Entire Project / Multiple Files**
 
 First initialize TypeScript project: `tsc --init`
 
@@ -494,11 +528,11 @@ In other words it's just a loop where the goal of that loop is to create a new a
 <br>
 <br>
 
-**Including & Excluding Files**
+### **Including & Excluding Files** <span id="a0301"></span><a href="#top03">&#8593;</a>
 
 Exclude files in the `tsconfig.json` file:
 
-```
+```ts
   "exclude": [
     "filename.ts"
   ]
@@ -506,7 +540,7 @@ Exclude files in the `tsconfig.json` file:
 
 you can use wildcards:
 
-```
+```ts
   "exclude": [
     "*.dev.ts"
   ]
@@ -514,7 +548,7 @@ you can use wildcards:
 
 Include files in the `tsconfig.json` file:
 
-```
+```ts
 "include": [
   "app.ts",
   "someFolder"
@@ -523,15 +557,15 @@ Include files in the `tsconfig.json` file:
 
 Include individual files:
 
-```
+```ts
 "files": [
   "someFile.ts"
 ]
 ```
 
-**Setting a Compilation Target**
+### **Setting a Compilation Target** <span id="a0302"></span><a href="#top03">&#8593;</a>
 
-In the `"compilerOptions: {}" (in the tsconfig.json) file we can set up how our TypeScript code is compiled. So not only which files are going to be compiled, but also how the files that are going to be compiled are treated by TypeScript.
+In the `"compilerOptions: {}"` (in the tsconfig.json) file we can set up how our TypeScript code is compiled. So not only which files are going to be compiled, but also how the files that are going to be compiled are treated by TypeScript.
 
 **`"target"`**: which JS version you want to compile the code into.
 
@@ -546,7 +580,7 @@ The newer the version is the better the code is (more concise).
 
 for example:
 
-```
+```ts
 "lib": [
   "dom",
   "es6",
@@ -599,7 +633,7 @@ src folder == (e.g. TypeScript files)
 <br>
 <br>
 
-**Strict options**
+#### **Strict options** <span id="a0303"></span><a href="#top03">&#8593;</a>
 
 **`"strict: true"`**: sets all the strict options to true
 
@@ -615,7 +649,7 @@ src folder == (e.g. TypeScript files)
 
 <br>
 
-**Code Quality Options**
+#### **Code Quality Options** <span id="a0304"></span><a href="#top03">&#8593;</a>
 
 Additional checks
 
@@ -631,9 +665,11 @@ For more check the <a href="https://www.typescriptlang.org/docs/handbook/intro.h
 
 <br>
 
-**Debugging with Visual Studio Code**
+**Debugging with Visual Studio Code** <span id="a0305"></span><a href="#top03">&#8593;</a>
 
 Start debugging inside of VS Code:
+
+<br>
 
 F5
 
@@ -641,9 +677,9 @@ or
 
 CTRL + SHIFT + D
 
-<br>
+<br><br>
 
-#### **Useful Resources & Links**
+#### **Useful Resources & Links** <span id="a0306"></span><a href="#top03">&#8593;</a>
 
 Attached you find all the code snapshots for this module - you also find them attached to individual lectures throughout this module.
 
@@ -661,22 +697,31 @@ These links might also be interesting:
 
 <br><br>
 
-## **Section 04: Next-generation JavaScript and TypeScript**
+## **Section 04: Next-generation JavaScript and TypeScript** <span id="top04"></span>
 
 <br>
+
+1. <a href="#a0400">Arrow Functions</a>
+2. <a href="#a0401">The Spread Operator</a>
+3. <a href="#a0402">Rest Parameters</a>
+4. <a href="#a0403">Copying Arrays</a>
+5. <a href="#a0404">Copying Objects</a>
+6. <a href="#a0405">Array & Object Destructing</a>
+
+<br><br>
 
 Supported JS/TS <a href="https://kangax.github.io/compat-table/es6/">features</a> in different browsers.
 
 <br>
 
-### **Arrow Functions**
+### **Arrow Functions** <span id="a0400"></span><a href="#top04">&#8593;</a>
 
 The syntax:
 
-```
+```ts
 const add = (a: number, b: number) => {
   return a + b;
-}
+};
 ```
 
 <br>
@@ -687,9 +732,9 @@ set default function parameters last.
 
 <br>
 
-**The Spread Operator**
+#### **The Spread Operator** <span id="a0401"></span><a href="#top04">&#8593;</a>
 
-```
+```ts
 const hobbies = ["Sports", "Cooking"];
 const activeHobbies = ["Hiking"];
 
@@ -720,10 +765,10 @@ So whenever you need a comma separated list of values, you can use spread operat
 
 **Using spread operator to copy objects**
 
-```
+```ts
 const person = {
-  name: 'Mark',
-  age: 28
+  name: "Mark",
+  age: 28,
 };
 
 const copiedPerson = { ...person }; // copying the person object
@@ -733,9 +778,9 @@ So what it does is it pulls out all the values and puts them into the new consta
 
 <br>
 
-**Rest Parameters**
+### **Rest Parameters** <span id="a0402"></span><a href="#top04">&#8593;</a>
 
-```
+```ts
 // rest operator == flexible functions
 
 const add = (...numbers: number[]) => {
@@ -763,12 +808,12 @@ Rest operator is useful for accepting an unlimited amount of arguments.
 
 <br>
 
-Copying **Arrays**:
+### Copying **Arrays**: <span id="a0403"></span><a href="#top04">&#8593;</a>
 
 1. the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">`slice()`</a> method:
 
-```
-let hobbies = ['Sports', 'Cooking'];
+```ts
+let hobbies = ["Sports", "Cooking"];
 let copiedHobbies = hobbies.slice();
 ```
 
@@ -780,21 +825,21 @@ It basically returns a new array which contains all new elements of the old elem
 
 If you're using ES6+, you can use the spread operator.
 
-```
-let hobbies = ['Sports', 'Cooking'];
+```ts
+let hobbies = ["Sports", "Cooking"];
 let copiedHobbies = [...hobbies];
 ```
 
 <br>
 
-Copying **Objects**:
+### Copying **Objects**: <span id="a0404"></span><a href="#top04">&#8593;</a>
 
 1. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign">`Object.assign()`</a>
 
 You can use the `Object.assign()`.
 
-```
-let person = { name: 'Mark' };
+```typescript
+let person = { name: "Mark" };
 let copiedPerson = Object.assign({}, person);
 ```
 
@@ -804,8 +849,8 @@ This syntax creates a new object (the {} part) and assigns all properties of the
 
 2. Just as with arrays, you can also use the spread operator on objects:
 
-```
-let person = { name: 'Mark' };
+```ts
+let person = { name: "Mark" };
 let copiedPerson = { ...person };
 ```
 
@@ -818,11 +863,11 @@ More about cloning strategies <a href="https://redux.js.org/usage/structuring-re
 <br>
 <br>
 
-**Array & Object Destructing**
+### **Array & Object Destructing** <span id="a0405"></span><a href="#top04">&#8593;</a>
 
 Arrays:
 
-```
+```ts
 const hobbies = ["Sports", "Cooking"];
 const activeHobbies = ["Hiking"];
 
@@ -836,7 +881,7 @@ console.log(hobbies, hobby1, hobby2);
 
 Objects:
 
-```
+```ts
 let person = {
   fName: "Mark",
   age: 27,
@@ -844,7 +889,7 @@ let person = {
 
 const { fName, age } = person; // the values should be the same
 
-console.log({fName, age}, person );
+console.log({ fName, age }, person);
 // output: Object { fName: "Mark", age: 27 } Object { fName: "Mark", age: 27 }
 
 // overwriting the name of the values:
@@ -858,11 +903,28 @@ console.log(userName, age); // changed the fName value to userName (this is JS s
 
 <br><br>
 
-## Section-05: Classes & Interfaces
+## **Section-05: Classes & Interfaces** <span id="top05"></span>
 
-<br>
+<br><br>
 
-_Classes & Instances_
+## **Section-05-a: Classes** <span id="top05a"></span>
+
+<br><br>
+
+1. <a href="#a0500a">Classes & Instances</a>
+2. <a href="#a0501a">Compiling to JavaScript</a>
+3. <a href="#a0502a">JavaScript "this" Keyword</a>
+4. <a href="#a0503a">Constructor Functions & The "This" keyword</a>
+5. <a href="#a0504a">"private" and "public" Access Modifiers</a>
+6. <a href="#a0505a">"readonly" keyword</a>
+7. <a href="#a0506a">Inheritance</a>
+8. <a href="#a0507a">Getters and Setters</a>
+9. <a href="#a0508a">Static Methods & Properties</a>
+10. <a href="#a0509a">Abstract Classes</a>
+
+<br><br>
+
+### **Classes & Instances** <span id="a0500a"></span><a href="#top05a">&#8593;</a>
 
 Objects: instances of classes == based on classes
 
@@ -872,9 +934,9 @@ Classes: blueprints for objects
 
 <small>(npm start & tsc -w)</small>
 
-**Creating a Class**
+### **Creating a Class**
 
-```
+```ts
 class Department {
   name: string;
 
@@ -894,7 +956,7 @@ name: "Accounting"
 
 <br>
 
-**Compiling to JavaScript**
+### **Compiling to JavaScript** <span id="a0501a"></span><a href="#top05a">&#8593;</a>
 
 In ES6 the code is almost the same (except for types of course),
 below ES6 there's a lot of differences, for example constructor functions.
@@ -902,7 +964,7 @@ below ES6 there's a lot of differences, for example constructor functions.
 <br>
 <br>
 
-**JavaScript this keyword**
+### **JavaScript this keyword** <span id="a0502a"></span><a href="#top05a">&#8593;</a>
 
 In an object method, `this` refers to the **object**.
 
@@ -925,11 +987,11 @@ In an event, `this` refers to the **element** that received the event (i.e. inpu
 <br>
 <br>
 
-**Constructor Functions & The "This" Keyword**
+### **Constructor Functions & The "This" Keyword** <span id="a0503a"></span><a href="#top05a">&#8593;</a>
 
 **This** keyword typically refers to a concrete instance of a class that was created and with the dot notation you can access all the properties and methods of this instance (here this.name).
 
-```
+```ts
 class Department {
   name: string;
 
@@ -956,12 +1018,11 @@ const accountingCopy = { name: "s", describe: accounting.describe };
 // output: Department: undefined
 // why? because it only points to the method, it doesn't provide arguments!
 accountingCopy.describe();
-
 ```
 
 <br>
 
-**"private" and "public" Access Modifiers**
+### **"private" and "public" Access Modifiers** <span id="a0504a"></span><a href="#top05a">&#8593;</a>
 
 private = accessible only within a class
 
@@ -971,14 +1032,14 @@ public = accessible everywhere
 
 private properties, public methods (usually with validation) to modify those properties.
 
-**"readonly" keyword**
+### **"readonly" keyword** <span id="a0505a"></span><a href="#top05a">&#8593;</a>
 
 the name is self-explanatory, after initialization you can't change it's value, for example an id should be readonly.
 
 <br>
 <br>
 
-**Inheritance**
+### **Inheritance** <span id="a0506a"></span><a href="#top05a">&#8593;</a>
 
 The syntax:
 
@@ -990,7 +1051,7 @@ The `SubClass`(child) inherits everything from the `BaseClass`(parent), even the
 
 Whenever you want to use properties from the `BaseClass`, inside of `SubClass`, you have to add the `super()` method into the sub class' constructor. The `super()` method is used to get the properties of the base class.
 
-```
+```ts
 class SubClass extends BaseClass {
   constructor(args: string) {
     super(args);
@@ -1004,11 +1065,11 @@ private methods/properties in base class are not accessible in sub class.
 
 <br>
 
-**Getters and Setters**
+### **Getters and Setters** <span id="a0507a"></span><a href="#top05a">&#8593;</a>
 
 Getter Syntax:
 
-```
+```ts
 get someValueGetter() {
   if (this.someProperty) {
     return this.someProperty;
@@ -1022,7 +1083,7 @@ A getter always returns something
 
 Setter Synax:
 
-```
+```ts
 get someValueSetter(value: type) {
   if (!value) {
     throw new Error('Invalid value!');
@@ -1033,7 +1094,7 @@ get someValueSetter(value: type) {
 
 <br>
 
-**Static Methods & Properties**
+### **Static Methods & Properties** <span id="a0508a"></span><a href="#top05a">&#8593;</a>
 
 Those are used to modify classes without needing to instantiate it (e.g `Math` class (`Math.random()` etc)). So no need to use the `new` keyword in order to modify a class.
 
@@ -1041,7 +1102,7 @@ Those are used to modify classes without needing to instantiate it (e.g `Math` c
 
 Syntax:
 
-```
+```typescript
 static createEmployee(name: string) {
   return { name: name };
 }
@@ -1053,7 +1114,7 @@ Though you can't access static properties/methods inside the class inside proper
 
 <br>
 
-**Abstract Classes**
+### **Abstract Classes** <span id="a0509a"></span><a href="#top05a">&#8593;</a>
 
 Syntax:
 
@@ -1066,14 +1127,14 @@ Abstract Classes = polymorphism
 <br><br>
 <br><br>
 
-## **Interfaces**
+## **Section 05-b: Interfaces** <span id="top05-b"></span>
 
 <br><br>
 
-1. <a href="#intdef">Interface definition.</a>
-2. <a href="#intcls">Using interfaces with Classes.</a>
-3. <a href="#whyint">Why Interfaces?</a>
-4. <a href="#optparam">Optional Paremeters & Properties</a>
+1. <a href="#a0500">Interface introduction & definition.</a>
+2. <a href="#a0501">Using interfaces with Classes.</a>
+3. <a href="#a0502">Why Interfaces?</a>
+4. <a href="#a0503">Optional Paremeters & Properties</a>
 
 <br><br>
 
@@ -1081,7 +1142,7 @@ Abstract Classes = polymorphism
 
 <br>
 
-<span id="intdef">What is an interface?</span>
+<span id="a0500">What is an interface?</span> <a href="#top05-b">&#8593;</a>
 
 Interface describes the structure of an object
 
@@ -1089,7 +1150,7 @@ Interface describes the structure of an object
 
 Interface keyword exists only in TypeScript, here's how the syntax looks:
 
-```
+```typescript
 interface Person {
   name: string;
   age: number;
@@ -1100,14 +1161,14 @@ interface Person {
 let user1: Person;
 
 user1 = {
-  name: 'Mark',
+  name: "Mark",
   age: 23,
   greet(phrase: string) {
-    console.log(phrase + ' ' + this.name); // `this` in this case is a reference to the object
-  }
-}
+    console.log(phrase + " " + this.name); // `this` in this case is a reference to the object
+  },
+};
 
-user1.greet('Hi there - I am');
+user1.greet("Hi there - I am");
 ```
 
 You use `interface` not as a blueprint, but as a custom type.
@@ -1124,13 +1185,13 @@ Summary:
 
 <br><br>
 
-### **Using Interfaces with Classes** <span id="intcls"></span>
+### **Using Interfaces with Classes** <span id="a0501"></span><a href="#top05-b">&#8593;</a>
 
 <br>
 
 A class can implement `interface`'s features/properties and follow it's rules:
 
-```
+```typescript
 interface Greetable {
   name: string;
 
@@ -1148,7 +1209,7 @@ class Person implements Greetable, AnotherInterface {
   }
 
   greet(phrase: string) {
-    console.log(phrase + ' ' + this.name); // `this` in this case is a reference to the object
+    console.log(phrase + " " + this.name); // `this` in this case is a reference to the object
   }
 }
 ```
@@ -1157,17 +1218,17 @@ The `Person` class has to meet the `Greetable` `interface`'s requirements, meani
 
 <br>
 
-### **Why interfaces?** <span id="whyint"></span>
+### **Why interfaces?** <span id="a0502"></span><a href="#top05-b">&#8593;</a>
 
 You can use `interfaces` to force a class to have particular properties and methods, so you can be sure that it will have those.
 
 <br>
 
-### **Optional Paremeters & Properties** <span id="optparam"></span>
+### **Optional Paremeters & Properties** <span id="a0503"></span><a href="#top05-b">&#8593;</a>
 
 You can define optional properties in interfaces and classes:
 
-```
+```typescript
 interface Named {
   outputName?: string;
 }
@@ -1179,7 +1240,7 @@ The question mark before a type means that this property might exist in classes 
 
 You can also have optional methods.
 
-```
+```typescript
 interface Person {
   name: string;
 
@@ -1191,7 +1252,7 @@ interface Person {
 
 This works the same in classes:
 
-```
+```typescript
 class Person implements Named {
   name?: string;
 
@@ -1230,7 +1291,7 @@ class Person implements Named {
 
 Interseption types allow us to combine other types:
 
-```
+```typescript
 type Admin = {
   name: string;
   privileges: string[];
@@ -1252,7 +1313,7 @@ const emp1: ElevatedEmployee = {
 
 Intersection types are closely related to `interface` inheritance. This can be achieved with interfaces too:
 
-```
+```typescript
 interface Admin {
   name: string;
   privileges: string[];
@@ -1276,7 +1337,7 @@ const e1: ElevatedEmployee = {
 
 This can be also achieved with Union types:
 
-```
+```typescript
 type Combinable = string | number;
 type Numeric = number | boolean;
 
@@ -1299,9 +1360,10 @@ Examples:
 
 #### if (`typeof` x === 'someType') {}
 
-```
+```typescript
 function add(a: Combinable, b: Combinable) {
-  if (typeof a === 'string' || typeof b === 'string') { // type guard (if)
+  if (typeof a === "string" || typeof b === "string") {
+    // type guard (if)
     return a.toString() + b.toString();
   }
   return a + b;
@@ -1310,19 +1372,19 @@ function add(a: Combinable, b: Combinable) {
 
 #### if (x `in` y)
 
-```
+```typescript
 type UnknownEmployee = Employee | Admin;
 
 function printEmployeeInformation(emp: UnknownEmployee) {
-  console.log('Name: ' + emp.name);
+  console.log("Name: " + emp.name);
 
   // if 'privileges' property exists in emp (employee) then...
-  if('privileges' in emp) {
-  console.log('Privileges: ' + emp.privileges);
+  if ("privileges" in emp) {
+    console.log("Privileges: " + emp.privileges);
   }
 
-  if('startDate' in emp) {
-  console.log('Start Date: ' + emp.startDate);
+  if ("startDate" in emp) {
+    console.log("Start Date: " + emp.startDate);
   }
 }
 
@@ -1332,7 +1394,7 @@ printEmployeeInformation(e1);
 
 #### if (x `instanceof` y)
 
-```
+```typescript
 class Car {
   drive() {
     console.log('Driving...');
@@ -1384,15 +1446,15 @@ other types: `typeof`
 
 `Discriminated unions` is a pattern which you can use when working with `union types` that makes implementing `type guards` easier. It's available when you're working with `Object`s and `union types`.
 
-```
+```typescript
 interface Bird {
   // discriminated union - used to describe that interface/object
-  type: 'bird'; // literal type
+  type: "bird"; // literal type
   flyingSpeed: number;
 }
 
 interface Horse {
-  type: 'horse'; // literal type
+  type: "horse"; // literal type
   runningSpeed: number;
 }
 
@@ -1401,16 +1463,16 @@ type Animal = Bird | Horse;
 function MoveAnimal(animal: Animal) {
   let speed;
   switch (animal.type) {
-    case 'bird':
+    case "bird":
       speed = animal.flyingSpeed;
       break;
-    case 'horse':
+    case "horse":
       speed = animal.runningSpeed;
   }
-  console.log('Moving at speed: ' + speed);
+  console.log("Moving at speed: " + speed);
 }
 
-moveAnimal({type: 'bird', flyingSpeed: 10});
+moveAnimal({ type: "bird", flyingSpeed: 10 });
 ```
 
 <br><br>
@@ -1421,16 +1483,18 @@ Type casting helps you tell TypeScript that some value is of a specific type whe
 
 Example:
 
-```
+```HTML
 HTML:
 
 <p></p>
 
 (empty paragraph)
+```
 
-TS:
+```ts
+// TypeScript
 
-const paragraph = document.querySelector('p'); // == HTMLParagraphElement
+const paragraph = document.querySelector("p"); // == HTMLParagraphElement
 ```
 
 In this case we could use innerText since TS knows that this is a HTMLParagraphElement.
@@ -1443,30 +1507,36 @@ Not in the case if it's a HTMLElement since TS doesn't know if this element coul
 
 `Type Casting`:
 
+```html
+<input id="user-input" />
 ```
-<input id="user-input">
 
+```typescript
 // ! means that this element will never yield null
-const userInputElement = <HTMLInputElement>document.getElementById('user-input')!;
+const userInputElement = <HTMLInputElement>(
+  document.getElementById("user-input")!
+);
 
 // this is TypeScript only feature, works differently in JSX
 
-userInputElement.value = 'hello';
+userInputElement.value = "hello";
 ```
 
 Another method of doing this:
 
-```
-const userInputElement = document.getElementById('user-input')! as HTMLInputElement;
+```ts
+const userInputElement = document.getElementById(
+  "user-input"
+)! as HTMLInputElement;
 ```
 
 Alternative without the exclamation mark:
 
-```
-const userInputElement = document.getElementById('user-input');
+```ts
+const userInputElement = document.getElementById("user-input");
 
 if (userInputElement) {
-  (userInputElement as HTMLInputElement).value = 'hello';
+  (userInputElement as HTMLInputElement).value = "hello";
 }
 ```
 
@@ -1474,7 +1544,7 @@ if (userInputElement) {
 
 ### **Index Properties** <span id="a0604"></span><a href="#top06">&#8593;</a>
 
-```
+```ts
 interface ErrorContainer {
   // Index type:
   [prop: string]: string;
@@ -1482,11 +1552,11 @@ interface ErrorContainer {
 }
 
 const errorBag: ErrorContainer = {
-  email: 'Not a valid email!',
+  email: "Not a valid email!",
   // stringProperty: 'stringValue', as it's in the interface
 
-  username: 'Must start with a capital character!'
-}
+  username: "Must start with a capital character!",
+};
 ```
 
 Index type gives us extra flexibility so that we don't need to know in advance which property name we want to use, and how many properties we need.
@@ -1505,7 +1575,7 @@ Use it whenever TypeScript can't infer a type on it's own.
 
 Example:
 
-```
+```ts
 type Combinable = string | number;
 type Numeric = number | boolean;
 
@@ -1523,14 +1593,15 @@ function add(a: string, b: number): string;
 function add(a: number, b: string): string;
 
 function add(a: Combinable, b: Combinable) {
-  if (typeof a === 'string' || typeof b === 'string') { // type guard (if)
+  if (typeof a === "string" || typeof b === "string") {
+    // type guard (if)
     return a.toString() + b.toString();
   }
   return a + b;
 }
 
-const result = add('Mark', ' Smith');
-result.split(' ');
+const result = add("Mark", " Smith");
+result.split(" ");
 ```
 
 Overload basically means that there are other ways of calling this function.
@@ -1543,10 +1614,10 @@ Optional chaining is used when you're not sure whether a certain property on an 
 
 For example we're fetching this data from backend:
 
-```
+```ts
 const fetchedUserData = {
-  id: 'u1',
-  name: 'Mark',
+  id: "u1",
+  name: "Mark",
   // job: { title: 'CEO', description: 'The CEO of the company'}
 };
 
@@ -1556,9 +1627,9 @@ console.log(fetchedUserData.job && fetchedUserData.job.title);
 // TypeScript way - optional chaining
 console.log(fetchedUserData?.job?.title);
 
-This tells TypeScript:
-if job property exists, then access job property,
-if title property exists, then access title property
+// This tells TypeScript:
+// if job property exists, then access job property,
+// if title property exists, then access title property
 ```
 
 Optional chaining operator ( `??` ) helps us safely access nested properties and nested objects in our object data and if the thing in front of the question mark is undefined it will not access the thing that it's after and therefore will not throw a runtime error, but instead it will just not continue.
@@ -1585,10 +1656,10 @@ The Nullish Coalescing operator: `??`
 
 For example we'd want to treat `null` or `undefined` values differently (compared to for example `string`, `number` etc):
 
-```
-const userInput = '';
+```ts
+const userInput = "";
 
-const storedData = userInput ?? 'DEFAULT';
+const storedData = userInput ?? "DEFAULT";
 ```
 
 `??` basically means: if this value is `null` or `undefined` (only those two options), then use the `'DEFAULT'` fallback, if it's not `null` or `undefined`, then we'll use `userInput` value/fallback (option).
@@ -1597,16 +1668,15 @@ const storedData = userInput ?? 'DEFAULT';
 
 So console logging would look like this:
 
-```
-const userInput = '';
-const storedData = userInput ?? 'DEFAULT';
+```ts
+const userInput = "";
+const storedData = userInput ?? "DEFAULT";
 
 console.log(storedData);
 //output: ''
 
-
 const userInput = undefined;
-const storedData = userInput ?? 'DEFAULT';
+const storedData = userInput ?? "DEFAULT";
 
 console.log(storedData);
 //output: DEFAULT
@@ -1617,3 +1687,333 @@ console.log(storedData);
 <hr>
 
 <br><br>
+
+## **Section 07: Generics** <span id="top07"></span>
+
+<br>
+
+1. <a href="#a0700">JavaScript Promises</a>
+2. <a href="#a0701">Built-in Generics & What are Generics?</a>
+3. <a href="#a0702">Creating a Generic Function</a>
+4. <a href="#a0703">Working with Constraints</a>
+5. <a href="#a0704">Another Generic Function</a>
+6. <a href="#a0705"></a>
+7. <a href="#a0706"></a>
+8. <a href="#a0707"></a>
+
+<br><br>
+
+<br>
+
+# TODO: Finish Section-07, Learn JS Promises & then re-do Section-07
+
+<br>
+
+#### **JavaScript `Promises`** <span id="a0700"></span><a href="#top07">&#8593;</a> >>(unfinished)<<
+
+<br>
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises">Using JS Promises</a>
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">JS Promise</a>
+
+<a href="https://web.dev/javascript-async-functions/">Async functions</a>
+
+<br>
+
+The `Promise` object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+
+<br>
+
+Essentially, a promise is a returned object to which you attach callbacks, instead of passing callbacks (passing functions as arguments) into a function.
+
+Imagine a function, `createAudioFileAsync()`, which asynchronously generates a sound file given a configuration record and two callback functions, one called if the audio file is successfully created, and the other called if an error occurs.
+
+Here's some code that uses `createAudioFileAsync()`:
+
+```js
+function successCallback(result) {
+  console.log("Audio file ready at URL: " + result);
+}
+
+function failureCallback(error) {
+  console.error("Error generating audio file: " + error);
+}
+
+createAudioFileAsync(audioSettings, successCallback, failureCallback);
+```
+
+if `createAudioFileAsync()` were rewritten to return a promise, you would attach your callbacks to it instead:
+
+```js
+createAudioFileAsync(audioSettings).then(successCallback, failureCallback);
+```
+
+<br>
+
+Advantages of using `Promises`:
+
+<br>
+
+##### **Guarantees**
+
+Unlike passed-in callback functions, a promise comes with some guarantees:
+
+- Callbacks added with `then()` method will never be invoked before the completition of the current run of JavaScript event loop
+- These callbacks will be invoked even if they were added after the success or failure of the asynchronous operation that the promise represents.
+- Multiple callbacks may be added by calling `then()` method several times. They will be invoked one after another, in the order in which they were inserted.
+
+One of the great things about using promises is **chaining**.
+
+<br>
+
+##### **Chaining**
+
+A common need is to execute two or more asynchronous operations back to back, where each subsequent operation starts when the previous operation succeeds, with the result from the previous step. We accomplish this by creating a **promise chain**.
+
+Here's the magic: the `then()` function returns a **new promise**, different from the original:
+
+```js
+const promise = doSomething();
+
+const promise2 = promise.then(successCallback, failureCallback);
+```
+
+or
+
+```js
+const promise2 = doSomething().then(successCallback, failureCallback);
+```
+
+<br>
+
+This second promise (`promise2`) represents the completition not just of `doSomething()`, but also the `successCallback` or `failureCallback` you passed in, which can be other asynchronous functions returning a promise. When that's the case, any callbacks added to `promise2` get queued behind the promise returned by either `successCallback` or `failureCallback`.
+
+<br>
+
+Basically, each promise represents the completition of another asynchronous step in the chain.
+
+<br>
+
+In the old days, doing several asynchronous operations in a row would lead to the classic callback pyramid of doom:
+
+```js
+doSomething(function (result) {
+  doSomethingElse(
+    result,
+    function (newResult) {
+      doThirdThing(
+        newResult,
+        function (finalResult) {
+          console.log("Got the final result: " + finalResult);
+        },
+        failureCallback
+      );
+    },
+    failureCallback
+  );
+}, failureCallback);
+```
+
+<br>
+
+With modern functions, we attach our callbacks to the returned promises instead, forming a promise chain:
+
+```js
+doSomething()
+  .then(function (result) {
+    return doSomethingElse(result);
+  })
+  .then(function (newResult) {
+    return doThirdThing(newResult);
+  })
+  .then(function (finalResult) {
+    console.log("Got the final result: " + finalResult);
+  })
+  .catch(failureCallback);
+```
+
+The arguments to `then` are optional, and `catch(failureCallback)` is short for `then(null, failureCallback)`. You might see this expressed with arrow functions instead:
+
+```js
+doSomething()
+  .then((result) => doSomethingElse(result))
+  .then((newResult) => doThirdThing(newResult))
+  .then((finalResult) => {
+    console.log(`Got the final result: ${finalResult}`);
+  })
+  .catch(failureCallback);
+```
+
+**Important**: Always return results, otherwise callbacks won't catch the result of a previous promise (with arrow functions `() => x` is short for `() => { return x; }`).
+
+<br>
+
+##### **Chaining after a catch**
+
+It's possible to chain _after_ a failure, i.e. a `catch`, which is useful to accomplish new actions even after an action failed in the chain. Read the following example:
+
+```js
+new Promise((resolve, reject) => {
+  console.log("Initial");
+
+  resolve();
+})
+  .then(() => {
+    throw new Error("Something failed");
+
+    console.log("Do this");
+  })
+  .catch(() => {
+    console.error("Do that");
+  })
+  .then(() => {
+    console.log("Do this, no matter what happened before");
+  });
+```
+
+Output:
+
+```
+Initial
+Do that
+Do this, no matter what happened before
+```
+
+You can do more notes about it later, continue with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#error_propagation">Error Propagation</a>
+
+<br>
+
+### **Built-in Generics & What are Generics?** <span id="a0701"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+`Generic Type` is a **type which is** kind-of **connected with some other _type_** and is really flexible regarding which exact type that other _type_ is.
+
+<br>
+
+Whenever you see something like this `<T>` in TypeScript - you're dealing with a generic type.
+
+<br>
+
+#### An example of a Generic Type: `Array` Type
+
+<br>
+
+For example:
+
+```ts
+const names: Array<string> = [];
+
+// this is the same thing
+const names2: string[] = [];
+
+// Array<string> == string[]
+```
+
+You can also use `union types` with `generic types`:
+
+```ts
+const userInput: Array<string | number> = [];
+```
+
+<br>
+
+The idea of `generic types` is let TypeScript provide support during development. A certain type (in this case the `Array` type) might simply work better or work at all if you provide additional information about a type of data that's provided in this (`Array`) type.
+
+`Array` type is just an example.
+
+<br>
+
+#### Another Generic Type - the `Promise` type:
+
+```typescript
+const promise: Promise<number> = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(10);
+  }, 2000);
+});
+
+promise.then((data) => {
+  //data.split(' '); // - of course it won't work
+});
+```
+
+So you're really flexible what you do with that `generic type` information - an `Array` knows which data it stores, a `Promise` knows which data it returns.
+
+<br>
+
+If you build your own `generic` `classes` or `functions` you might do something totally different in there, but in the end **`Generic Types` help you to get additional type information**, if you got a more complex `class` or more complex `function` that does something with the data that's coming in, in a way where it doesn't really care about the data being of one particular type, but where you want to store the type information of that incoming data to get better TypeScript support whenever you work with your `generic types`, `Promise`s or `Array`s.
+
+<br><br>
+
+### **Creating a Generic Function** <span id="a0702"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+A `generic` function that merges two objects and returns a new object:
+
+```typescript
+function merge<T, U>(objA: T, objB: U) {
+  // returns T & U ( merge(): T & U )
+  return Object.assign(objA, objB);
+}
+
+const mergedObj = merge({ name: "Mark" }, { age: 26 });
+```
+
+With Generic Types you can specify what kind of `Objects` you'd want to assign/return. So you're not dealing with some random object types, but with specific object types.
+
+<br>
+
+With Generic Types we're giving TypeScript the extra information that we don't know what exactly the types will be. We're just specifying that those objects will be of `any` type, but those are going to be different than each other.
+
+<br>
+
+You can tell specificly TypeScript which types it should fill in by adding angle brackets after the function name when you call it, and then you would fill your own types for `<T>` and `<U>`, for example:
+
+```typescript
+// <string, number> means <T> will be of type string and <U> of type number,
+// but it wouldn't work since this is an object
+const mergedObj = merge<string, number>({ name: 'Mark' }, { age: 26 });
+
+
+// <T> of type {} with name property that is of type string, etc...,
+// but this is redundant
+const mergedObj = merge<{name: string, string[]}, {age: number}>({ name: 'Mark' }, { age: 26 });
+```
+
+So this is what `Generics` are all about - you can fill in different concrete types for different function calls, but we don't need to do that here, since TypeScript simply infers the types of the values we're passing as arguments, and then assigns the infered types for `<T>` and `<U>` for this function call.
+
+<br><br>
+
+### **Working with Constraints** <span id="a0703"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+Constraint means a limitation or restriction.
+
+<br>
+
+In this example we'll restrict the types of `<T>` and `<U>` object types:
+
+```ts
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
+}
+
+const mergedObj = merge({ name: "Mark", hobbies: ["Hiking"] }, { age: 26 });
+// const mergedObj = merge({ name: "Mark", hobbies: ['Hiking'] }, 26); // error
+```
+
+<br>
+
+We can guarantee that we get two objects there by setting certain `Constraints` on `Generic types`, and this `Constraints` here could be anything, you can refer to `Object`, a `string`, your own `type`, `union types`.
+
+<br><br>
+
+### **Another Generic Function** <span id="a0704"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+...
