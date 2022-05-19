@@ -1415,7 +1415,7 @@ moveAnimal({type: 'bird', flyingSpeed: 10});
 
 <br><br>
 
-#### **Type Casting** <span id="a0603"></span><a href="#top06">&#8593;</a>
+### **Type Casting** <span id="a0603"></span><a href="#top06">&#8593;</a>
 
 Type casting helps you tell TypeScript that some value is of a specific type where TypeScript is not able to detect it on it's own.
 
@@ -1472,7 +1472,7 @@ if (userInputElement) {
 
 <br><br>
 
-#### **Index Properties** <span id="a0604"></span><a href="#top06">&#8593;</a>
+### **Index Properties** <span id="a0604"></span><a href="#top06">&#8593;</a>
 
 ```
 interface ErrorContainer {
@@ -1493,7 +1493,7 @@ Index type gives us extra flexibility so that we don't need to know in advance w
 
 <br><br>
 
-#### **Function Overloads** <span id="a0605"></span><a href="#top06">&#8593;</a>
+### **Function Overloads** <span id="a0605"></span><a href="#top06">&#8593;</a>
 
 Function Overloads - a feature that allows us to define multiple function signatures for one and the same function, which simply means we can have multiple possible ways of calling a function with different parameters to then do something inside of that function.
 
@@ -1537,7 +1537,7 @@ Overload basically means that there are other ways of calling this function.
 
 <br><br>
 
-#### **Optional Chaining** <span id="a0606"></span><a href="#top06">&#8593;</a>
+### **Optional Chaining** <span id="a0606"></span><a href="#top06">&#8593;</a>
 
 Optional chaining is used when you're not sure whether a certain property on an object is set or if it's undefined.
 
@@ -1561,15 +1561,15 @@ if job property exists, then access job property,
 if title property exists, then access title property
 ```
 
-Optional chaining operator `fetchedUserData?.job?.title` helps us safely access nested properties and nested objects in our object data and if the thing in front of the question mark is undefined it will not access the thing that it's after and therefore will not throw a runtime error, but instead it will just not continue.
+Optional chaining operator ( `??` ) helps us safely access nested properties and nested objects in our object data and if the thing in front of the question mark is undefined it will not access the thing that it's after and therefore will not throw a runtime error, but instead it will just not continue.
 
-<small>
-So basically behind the scenes it's compiled into an `if ()` check which checks whatever (`fetchedUserData` property) exists before it tries to access (`job` property).
-</small>
+<br>
+
+So basically behind the scenes it's compiled into an `if` check, which checks whether ( the `fetchedUserData` property ) exists before it tries to access ( the `job` property ).
 
 <br><br>
 
-#### **Nullish Coalescing** <span id="a0607"></span><a href="#top06">&#8593;</a>
+### **Nullish Coalescing** <span id="a0607"></span><a href="#top06">&#8593;</a>
 
 Coalesce = connect / link / join / merge / mix / unite
 
@@ -1591,7 +1591,7 @@ const userInput = '';
 const storedData = userInput ?? 'DEFAULT';
 ```
 
-`??` basically means: if this value is (only) `null` or `undefined` then use the `'DEFAULT'` fallback, if it's not `null` or `undefined`, then we'll use `userInput` value/fallback (option).
+`??` basically means: if this value is `null` or `undefined` (only those two options), then use the `'DEFAULT'` fallback, if it's not `null` or `undefined`, then we'll use `userInput` value/fallback (option).
 
 <br>
 
@@ -1600,12 +1600,14 @@ So console logging would look like this:
 ```
 const userInput = '';
 const storedData = userInput ?? 'DEFAULT';
+
 console.log(storedData);
 //output: ''
 
 
 const userInput = undefined;
 const storedData = userInput ?? 'DEFAULT';
+
 console.log(storedData);
 //output: DEFAULT
 ```
