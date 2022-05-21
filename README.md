@@ -1697,15 +1697,17 @@ console.log(storedData);
 3. <a href="#a0702">Creating a Generic Function</a>
 4. <a href="#a0703">Working with Constraints</a>
 5. <a href="#a0704">Another Generic Function</a>
-6. <a href="#a0705"></a>
-7. <a href="#a0706"></a>
-8. <a href="#a0707"></a>
+6. <a href="#a0705">The "keyof" Constraint</a>
+7. <a href="#a0706">Generic Classes</a>
+8. <a href="#a0707">Generic Types - Summary</a>
+9. <a href="#a0708">Generic Utility Types</a>
+10. <a href="#a0709">Generic Types vs Union Types</a>
 
 <br><br>
 
 <br>
 
-# TODO: Finish Section-07, Learn JS Promises & then re-do Section-07
+# TODO: Learn JS Promises & then re-do Section-07
 
 <br>
 
@@ -2016,4 +2018,193 @@ We can guarantee that we get two objects there by setting certain `Constraints` 
 
 <br>
 
-...
+```ts
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = "Got no value.";
+  if (element.length === 1) {
+    descriptionText = "Got 1 element.";
+  } else if (element.length > 1) {
+    descriptionText = "Got " + element.length + " elements.";
+  }
+  return [element, descriptionText];
+}
+
+console.log(countAndDescribe("Hello"));
+// output: ["Hello", "Got 9 elements."] (9 characters)
+
+console.log(countAndDescribe(["One", "Two"]));
+// output: [Array(2), "Got 2 elements."]
+```
+
+<br><br>
+
+### **The "keyof" Constraint** <span id="a0705"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+```ts
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return "Value: " + obj[key];
+}
+
+extractAndConvert({ name: "Mark" }, "name");
+```
+
+First parameter `<T>`, should be any kind of Object,
+and the second parameter `<U>` should be any kind of key in that (`<T>`) Object.
+
+<br><br>
+
+### **Generic Classes** <span id="a0706"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+```ts
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    // if item not found
+    if (this.data.indexOf(item) === -1) {
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+// thanks to Generic types we can set this DataStorage class to hold strings only
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Mark");
+textStorage.addItem("Bob");
+textStorage.removeItem("Mark");
+console.log(textStorage.getItems());
+//output: ["Bob"]
+
+// in this case numbers only
+const numberStorage = new DataStorage<number>();
+```
+
+Again: the general idea of Generic Types is that we can make flexible and strongly typed classes/functions etc.
+
+<br>
+
+```ts
+// this won't work since we're working only with primitives and not reference types
+// const objStorage = new DataStorage<object>();
+
+// objStorage.addItem({ name: "Mark" });
+// objStorage.addItem({ name: "Bob" });
+// // ...
+// objStorage.removeItem({ name: "Bob" });
+// console.log(objStorage.getItems());
+```
+
+<br><br>
+
+### **Generic Types - summary** <span id="a0707"></span><a href="#top07">&#8593;</a>
+
+Generic Types give us flexibility combined with type safety. We're flexible regarding the values we pass in or the values we use in a class, at least as long as we adhere to the possible constraints.
+
+We then get the full type support with a generic class/function, since TypeScript knows which concrete type we pass in when we call a generic function or when we instantiate a generic class.
+
+<br><br>
+
+### **Generic Utility Types** <span id="a0708"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+<a href="https://www.typescriptlang.org/docs/handbook/utility-types.html">Utility Types - Documentation</a>
+
+<br>
+
+#### **Built-in Generic Utility Types**
+
+##### **`Partial` utility type**
+
+```ts
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal {
+  let courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+
+  return courseGoal as CourseGoal;
+}
+```
+
+So this tells TypeScript that (`courseGoal`) is an Object which in the end will be a `CourseGoal`, but initially `Partial` kind of wraps our own type and changes it into a type where all (`CourseGoal`'s) properties are optional.
+
+<br>
+
+In short:
+
+<br>
+
+`Partial` turns an object type into an object type where all the properties are optional.
+
+<br><br>
+
+##### **`Readonly` utility type**
+
+<br>
+
+```ts
+const names: Readonly<string[]> = ["Bob", "Mark"];
+names.push("John"); // error
+names.pop(); // error
+```
+
+This can also be used on objects.
+
+<br>
+
+<a href="https://www.typescriptlang.org/docs/handbook/utility-types.html">Full list of Generic Utility Types</a>
+
+<br><br>
+
+### **Generic Types vs Union Types** <span id="a0709"></span><a href="#top07">&#8593;</a>
+
+<br>
+
+Union Types are great when you want to have a function which you can call with one of these types every time you call it.
+
+<br>
+
+Generic Types are great when you want to lock-in a certain type.
+
+<br>
+
+Use the same type throught the entire class instance you create, use the same type throught the entire function - that's when you want a Generic Type.
+
+<br><br>
+
+You use Union Types when you want to be flexible to have a different type with every method/function call.
+
+<br><br>
+
+<hr>
