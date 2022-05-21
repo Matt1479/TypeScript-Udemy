@@ -1289,7 +1289,7 @@ class Person implements Named {
 
 <br>
 
-Interseption types allow us to combine other types:
+Intersection types allow us to combine other types:
 
 ```typescript
 type Admin = {
@@ -1433,7 +1433,7 @@ useVehicle(v1);
 useVehicle(v2);
 ```
 
-Type guards describes idea of checking if a certain property or method exists before you try to use it, or if you can do something with the type before you try to use it.
+Type guards describe the idea of checking if a certain property or method exists before you try to use it, or if you can do something with the type before you try to use it.
 
 Objects: `instanceof`, `in`
 
@@ -1581,8 +1581,7 @@ type Numeric = number | boolean;
 
 type Universal = Combinable & Numeric; // type Universal will be of type number
 
-// we're telling TS: if we call this function and both arguments are number,
-// then this function returns a number
+// we're telling TS: if we call this function and both arguments are of type number, then this function returns a number
 // Function overload syntax:
 function add(a: number, b: number): number;
 
@@ -1600,11 +1599,11 @@ function add(a: Combinable, b: Combinable) {
   return a + b;
 }
 
-const result = add("Mark", " Smith");
+const result = add("Mark", " Bob");
 result.split(" ");
 ```
 
-Overload basically means that there are other ways of calling this function.
+Overload basically means that there are many other ways of calling a certain function.
 
 <br><br>
 
@@ -1632,7 +1631,7 @@ console.log(fetchedUserData?.job?.title);
 // if title property exists, then access title property
 ```
 
-Optional chaining operator ( `??` ) helps us safely access nested properties and nested objects in our object data and if the thing in front of the question mark is undefined it will not access the thing that it's after and therefore will not throw a runtime error, but instead it will just not continue.
+Optional chaining operator ( `?` ) helps us safely access nested properties and nested objects in our object data and if the thing in front of the question mark is undefined it will not access the thing that it's after and therefore will not throw a runtime error, but instead it will just not continue.
 
 <br>
 
@@ -1692,16 +1691,15 @@ console.log(storedData);
 
 <br>
 
-1. <a href="#a0700">JavaScript Promises</a>
-2. <a href="#a0701">Built-in Generics & What are Generics?</a>
-3. <a href="#a0702">Creating a Generic Function</a>
-4. <a href="#a0703">Working with Constraints</a>
-5. <a href="#a0704">Another Generic Function</a>
-6. <a href="#a0705">The "keyof" Constraint</a>
-7. <a href="#a0706">Generic Classes</a>
-8. <a href="#a0707">Generic Types - Summary</a>
-9. <a href="#a0708">Generic Utility Types</a>
-10. <a href="#a0709">Generic Types vs Union Types</a>
+1. <a href="#a0700">Built-in Generics & What are Generics?</a>
+2. <a href="#a0701">Creating a Generic Function</a>
+3. <a href="#a0702">Working with Constraints</a>
+4. <a href="#a0703">Another Generic Function</a>
+5. <a href="#a0704">The "keyof" Constraint</a>
+6. <a href="#a0705">Generic Classes</a>
+7. <a href="#a0706">Generic Types - Summary</a>
+8. <a href="#a0707">Generic Utility Types</a>
+9. <a href="#a0708">Generic Types vs Union Types</a>
 
 <br><br>
 
@@ -1709,7 +1707,7 @@ console.log(storedData);
 
 <br><br>
 
-### **Built-in Generics & What are Generics?** <span id="a0701"></span><a href="#top07">&#8593;</a>
+### **Built-in Generics & What are Generics?** <span id="a0700"></span><a href="#top07">&#8593;</a>
 
 <br>
 
@@ -1772,7 +1770,7 @@ If you build your own `generic` `classes` or `functions` you might do something 
 
 <br><br>
 
-### **Creating a Generic Function** <span id="a0702"></span><a href="#top07">&#8593;</a>
+### **Creating a Generic Function** <span id="a0701"></span><a href="#top07">&#8593;</a>
 
 <br>
 
@@ -1799,20 +1797,18 @@ You can tell specificly TypeScript which types it should fill in by adding angle
 
 ```typescript
 // <string, number> means <T> will be of type string and <U> of type number,
-// but it wouldn't work since this is an object
 const mergedObj = merge<string, number>({ name: 'Mark' }, { age: 26 });
 
 
-// <T> of type {} with name property that is of type string, etc...,
-// but this is redundant
-const mergedObj = merge<{name: string, string[]}, {age: number}>({ name: 'Mark' }, { age: 26 });
+// Explicitly assigning the types (but this is redundant)
+const mergedObj = merge<{name: string, string[]}, {age: number}>({ name: 'Mark', ['one', 'two'] }, { age: 26 });
 ```
 
 So this is what `Generics` are all about - you can fill in different concrete types for different function calls, but we don't need to do that here, since TypeScript simply infers the types of the values we're passing as arguments, and then assigns the infered types for `<T>` and `<U>` for this function call.
 
 <br><br>
 
-### **Working with Constraints** <span id="a0703"></span><a href="#top07">&#8593;</a>
+### **Working with Constraints** <span id="a0702"></span><a href="#top07">&#8593;</a>
 
 <br>
 
@@ -1828,7 +1824,7 @@ function merge<T extends object, U extends object>(objA: T, objB: U) {
 }
 
 const mergedObj = merge({ name: "Mark", hobbies: ["Hiking"] }, { age: 26 });
-// const mergedObj = merge({ name: "Mark", hobbies: ['Hiking'] }, 26); // error
+// const mergedObj = merge({ name: "Mark", hobbies: ['Hiking'] }, 26); // wrong since it's only a number without a property
 ```
 
 <br>
@@ -1837,7 +1833,7 @@ We can guarantee that we get two objects there by setting certain `Constraints` 
 
 <br><br>
 
-### **Another Generic Function** <span id="a0704"></span><a href="#top07">&#8593;</a>
+### **Another Generic Function** <span id="a0703"></span><a href="#top07">&#8593;</a>
 
 <br>
 
@@ -1846,6 +1842,7 @@ interface Lengthy {
   length: number;
 }
 
+// the Lengthy interface ensures that the Generic <T> type will have length property with a numeric value
 function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
   let descriptionText = "Got no value.";
   if (element.length === 1) {
@@ -1857,7 +1854,7 @@ function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
 }
 
 console.log(countAndDescribe("Hello"));
-// output: ["Hello", "Got 9 elements."] (9 characters)
+// output: ["Hello", "Got 5 elements."] (5 characters)
 
 console.log(countAndDescribe(["One", "Two"]));
 // output: [Array(2), "Got 2 elements."]
@@ -1865,7 +1862,7 @@ console.log(countAndDescribe(["One", "Two"]));
 
 <br><br>
 
-### **The "keyof" Constraint** <span id="a0705"></span><a href="#top07">&#8593;</a>
+### **The "keyof" Constraint** <span id="a0704"></span><a href="#top07">&#8593;</a>
 
 <br>
 
@@ -1885,7 +1882,7 @@ and the second parameter `<U>` should be any kind of key in that (`<T>`) Object.
 
 <br><br>
 
-### **Generic Classes** <span id="a0706"></span><a href="#top07">&#8593;</a>
+### **Generic Classes** <span id="a0705"></span><a href="#top07">&#8593;</a>
 
 <br>
 
@@ -1939,7 +1936,7 @@ Again: the general idea of Generic Types is that we can make flexible and strong
 
 <br><br>
 
-### **Generic Types - summary** <span id="a0707"></span><a href="#top07">&#8593;</a>
+### **Generic Types - summary** <span id="a0706"></span><a href="#top07">&#8593;</a>
 
 Generic Types give us flexibility combined with type safety. We're flexible regarding the values we pass in or the values we use in a class, at least as long as we adhere to the possible constraints.
 
@@ -1947,7 +1944,7 @@ We then get the full type support with a generic class/function, since TypeScrip
 
 <br><br>
 
-### **Generic Utility Types** <span id="a0708"></span><a href="#top07">&#8593;</a>
+### **Generic Utility Types** <span id="a0707"></span><a href="#top07">&#8593;</a>
 
 <br>
 
@@ -2010,21 +2007,29 @@ This can also be used on objects.
 
 <br><br>
 
-### **Generic Types vs Union Types** <span id="a0709"></span><a href="#top07">&#8593;</a>
+### **Generic Types vs Union Types** <span id="a0708"></span><a href="#top07">&#8593;</a>
 
 <br>
 
-Union Types are great when you want to have a function which you can call with one of these types every time you call it.
+Union Types are great when you want to have a function which you can call with one of these (Union) types every time you call it.
+
+E.g. `type Combinable = string | number`;
 
 <br>
 
-Generic Types are great when you want to lock-in a certain type.
-
-<br>
-
-Use the same type throught the entire class instance you create, use the same type throught the entire function - that's when you want a Generic Type.
+Generic Types are great when you want to lock in a certain type.
 
 <br><br>
+
+(Generic Types)
+
+Use the same type throught the entire class instance you create,
+
+use the same type throught the entire function - that's when you want a Generic Type.
+
+<br><br>
+
+(Union Types)
 
 You use Union Types when you want to be flexible to have a different type with every method/function call.
 
