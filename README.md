@@ -146,12 +146,18 @@ Don't assign a type if it can be infered by TypeScript.
 #### Type **object**
 
 ```ts
-{ age: 30 }
+{ property: value }
+
+// e.g.:
+{
+  age: 30,
+  name: 'Mark'
+}
 ```
 
 Any JavaScript object, more specific types (type of object) are possible.
 
-A TypeScript object can have the same type as his attributes and methods.
+A TypeScript object can have the same type as his properties and methods.
 
 <br>
 
