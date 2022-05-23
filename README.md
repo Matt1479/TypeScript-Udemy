@@ -93,7 +93,7 @@ All numbers, no differentation between integers or floats.
 
 All text values
 
-The \`\` quotes are used for template literals
+The \`\` quotes (backticks) are used for template literals
 
 #### Type **boolean**
 
@@ -145,7 +145,9 @@ Don't assign a type if it can be infered by TypeScript.
 
 #### Type **object**
 
-[ { age: 30 } ]
+```ts
+{ age: 30 }
+```
 
 Any JavaScript object, more specific types (type of object) are possible.
 
