@@ -150,18 +150,18 @@ Don't assign a type if it can be infered by TypeScript.
 
 // e.g.:
 {
-  age: 30,
   name: 'Mark'
+  age: 30,
 }
 ```
 
-Any JavaScript object, more specific types (type of object) are possible.
+Any JavaScript object, more specific object types are possible.
 
 A TypeScript object can have the same type as his properties and methods.
 
 <br>
 
-Assigning an object type(explicitly!) to a constant:
+Assigning an object type (explicitly) to a constant:
 
 ```typescript
 const person: {
@@ -223,15 +223,30 @@ So you have an object type in an object type so to say.
 
 #### Type **array**
 
+```ts
 [1, 2, 3]
+
+['a', 'b', 'c']
+```
 
 Any JavaScript array, type can be flexible or strict (regarding the element types)
 
-Declaring a string array: `let strarr: string[];`
+Declaring a string array:
+```
+ts let strArr: string[];
+```
 
 <br>
 
-<a href="https://www.w3schools.com/jsref/jsref_map.asp">map()</a> JavaScript method: creates a new array from calling a function for every array in element.
+<a href="https://www.w3schools.com/jsref/jsref_map.asp">map()</a> JavaScript method:
+
+`map()` creates a new array from calling a function for every array element.
+
+`map()` calls a function once for each element in an array.
+
+`map()` does not execute the function for empty elements.
+
+`map()` does not change the original array.
 
 <br>
 
@@ -239,25 +254,33 @@ Declaring a string array: `let strarr: string[];`
 
 #### Type tuple
 
-[1, 2] `// fixed type number / fixed length: 2 elements`
+```ts
+const tupleArr = [1, 2] // fixed type (number) & fixed length (2 elements)
+```
 
-Tuple type is a fixed type + fixed length
+Tuple type is a fixed type array with fixed length
 
 <br>
 
-Added by TypeScript: Fixed-length array
+Added by TypeScript: Fixed-length array with a fixed type
 
 Tuple is good to use when you have exactly x amount of elements in an array and you know the type of each value in advance. In that case you should use tuple type instead of an array since it adds more strictness into the app.
+
+For example you could limit it to 2 elements, where first element would be of type `number`, second element of type `string`:
+
+```ts
+const mixedTupleArr = [1, 'abc'];
+```
 
 <br>
 
 #### type enum
 
-enum { NEW, OLD }
+enum `{ NEW, OLD }`
 
-Added by TypeScript: Automatically enumerated global constant identifiers
+Added by TypeScript: Automatically enumerated global **constant** identifiers
 
-example of enum syntax: `enum Role { ADMIN, READ_ONLY, AUTHOR }` (it's gonna increment starting from 0 (ADMIN))
+example of enum syntax: `enum Role { ADMIN, READ_ONLY, AUTHOR }` (index: ADMIN = 0, READ_ONLY = 1, etc)
 
 <br>
 
@@ -267,10 +290,9 @@ example of enum syntax: `enum Role { ADMIN, READ_ONLY, AUTHOR }` (it's gonna inc
 
 Any kind of value, no specific type assignment
 
-Avoid this type at all costs.
+Avoid this type at all costs. 
 
-<br>
-<br>
+<br><br>
 
 **Union Types** <span id="a0204"></span><a href="#top02">&#8593;</a>
 
@@ -288,32 +310,41 @@ function combine(input1: number | string, input2: number | string) {
 }
 ```
 
-<br>
+<br><br>
 
 **Literal Types** <span id="a0205"></span><a href="#top02">&#8593;</a>
 
 Exact value, like `const number2 = 2.8;`, so it's not just a number, but a specific number
 
-or `const someString = 'string';`
+or `const stringLiteral = 'some string value';`
 
-Adding a + in front of each variable converts it into a number type: `return +num1 + +num2; // this is going to be a type of number`
+Adding a + in front of each variable converts it into a number type:
+```ts
+return +num1 + +num2; // those variables are going to be a type of number
+```
 
-<br>
+<br><br>
 
 **Type Aliases / Custom Types** <span id="a0206"></span><a href="#top02">&#8593;</a>
 
 With Aliases you can create your own types:
-
-`type Combinable = number | string;` (and any type setup, including literal types etc)
+```ts
+type Combinable = number | string;
+```
+(and any type setup, including literal types, object types, any kind of types, though do not mix primitives with referece types)
 
 It could save some extra code.
+
+<br><br>
 
 **Type Aliases & Object Types**
 
 Type aliases can be used to "create" your own types. You're not limited to storing union types though - you can also provide an alias to a (possibly complex) object type. For example:
 
-`type User = { name: string; age: number };`
-`const u1: User = { name: 'Max', age: 30 }; // this works!`
+```ts
+type User = { name: string; age: number };
+const u1: User = { name: 'Mark', age: 30 }; // this works!
+```
 
 This allows you to avoid unnecessary repetition and manage types centrally.
 
@@ -350,25 +381,28 @@ function isOlder(user: User, checkAge: number) {
 function return types:
 
 ```ts
+// explicitly assigning function return type (): number
 function add(n1: number, n2: number): number {
-  // <- explicitly return assigning type
   return n1 + n2;
 }
 ```
 
-void-type function (procedure, a function that doesn't have a `return` keyword):
+void-type function (which is called a procedure - a function that doesn't have a `return` keyword):
 
 ```ts
+// explicitly assigning a void type, normally TypeScript would infer that type
 function printResult(num: number): void {
-  // explicitly assigning a void type, normally TypeScript would infer that type
   console.log("Result: " + num);
 }
 ```
 
+<br><br>
+
 **Functions as Types** <span id="a0208"></span><a href="#top02">&#8593;</a>
 
 ```ts
-combineValues = add; // add() is a function
+// assigning add() function to this variable/constant
+combineValues = add;
 
 console.log(combineValues(8, 8));
 ```
@@ -379,24 +413,30 @@ You can store a pointer to a function inside a variable.
 
 Assigning Function Type(but without typing):
 
-`let combineValues: Function;`
+```ts
+let combineValues: Function;
+```
 
 <br>
 
 Assigning a Function Type with Typing:
 
-`let combineValues: (a: number, b: number) => number;`
+```ts
+let combineValues: (a: number, b: number) => number;
+```
 
 Now `combineValues` should accept any function that takes 2 parameters where each parameter is a number and where the function overall then returns a number.
 
 ```ts
 combineValues = add;
-combineValues = printResult; // this will throw an error of course!
+combineValues = printResult; // this will throw an error since it already has a function assigned to it
 ```
+
+<br><br>
 
 **Function Types & Callbacks** <span id="a0209"></span><a href="#top02">&#8593;</a>
 
-(A JavaScript callback is a function which is to be executed after another function has finished execution)
+(A JavaScript callback is a function which is going to be executed after another function has finished execution)
 
 Let's create this function:
 
@@ -415,7 +455,7 @@ addAndHandle(10, 20, (result) => {
 });
 ```
 
-In that case parameters are enforced and the return type isn't (since it's a void/procedure).
+In that case parameters are enforced and the return type isn't (since it's a void type).
 
 <br>
 
@@ -426,7 +466,9 @@ Callback functions can return something even if the argument on which they're pa
 
 **The "unknown" type** <span id="a0210"></span><a href="#top02">&#8593;</a>
 
-`let userInput: unknown;`
+```ts
+let userInput: unknown;
+```
 
 `unknown` type is different to `any` type,
 it's better to use `unknown` type over `any` type, because you atleast have _some_ type checking
@@ -438,17 +480,17 @@ let userInput: unknown;
 let userName: string;
 
 userInput = 5;
-userInput = "str";
+userInput = 'Bob';
 
 // this needs extra type checking, otherwise it'll throw an error
-if (typeof userInput === "string") {
+if (typeof userInput === `string`) {
   userName = userInput;
 }
 ```
 
-So `unknown` shouldn't be really used, but it's better than type `any`. Usually you'd just use Union type or Alias type.
+So `unknown` shouldn't be really used, but it's better than type `any`. Usually you'd just use `Union type` or `Alias type`.
 
-<br>
+<br><br>
 
 **The "never" Type** <span id="a0211"></span><a href="#top02">&#8593;</a>
 
@@ -718,7 +760,7 @@ These links might also be interesting:
 
 <br><br>
 
-Supported JS/TS <a href="https://kangax.github.io/compat-table/es6/">features</a> in different browsers.
+<a href="https://kangax.github.io/compat-table/es6/">Supported JS/TS features in different browsers.</a>
 
 <br>
 
@@ -749,9 +791,10 @@ const activeHobbies = ["Hiking"];
 // you can also copy values when creating a new arrays:
 const activeHobbies = ["Hiking", ...hobbies]; // this will push "Sports" and "Cooking" into that array
 
+// .. or you can push items into an existing array using the spread operator
 activeHobbies.push(...hobbies); // ... - spread operator
 
-// result:
+// console.log(activeHobbies)) result:
 Array(3) [ "Hiking", "Sports", "Cooking" ]
 ​
 0: "Hiking"
@@ -779,17 +822,18 @@ const person = {
   age: 28,
 };
 
-const copiedPerson = { ...person }; // copying the person object
+// copying the person object
+const copiedPerson = { ...person };
 ```
 
-So what it does is it pulls out all the values and puts them into the new constant (copies them).
+So what it does is it pulls out all the values (copies them) and puts them into the new constant.
 
 <br>
 
 ### **Rest Parameters** <span id="a0402"></span><a href="#top04">&#8593;</a>
 
 ```ts
-// rest operator == flexible functions
+// rest operator - flexible functions
 
 const add = (...numbers: number[]) => {
   let result = 0;
@@ -825,7 +869,7 @@ let hobbies = ["Sports", "Cooking"];
 let copiedHobbies = hobbies.slice();
 ```
 
-It basically returns a new array which contains all new elements of the old element, starting at the starting index you passed (and then up to the max number of elements you defined). If you just call **`slice()`** method, without arguments, **you get a new array with all elements of the old array**.
+It basically returns a new array which contains all elements of the other array, starting at the starting index you passed (and then up to the max number of elements you defined). If you just call **`slice()`** method, without arguments, **you get a new array with all elements of the other array**.
 
 <br>
 
@@ -851,7 +895,7 @@ let person = { name: "Mark" };
 let copiedPerson = Object.assign({}, person);
 ```
 
-This syntax creates a new object (the {} part) and assigns all properties of the old object (the second argument) to that newly created one. This creates a copy.
+This syntax creates a new object (the curly braces ( { } ) part) and assigns all properties of the old object (the second argument) to that newly created one. This creates a copy.
 
 <br>
 
@@ -862,7 +906,9 @@ let person = { name: "Mark" };
 let copiedPerson = { ...person };
 ```
 
-This will also create a new object (because you used { } ) and will then pull all properties of `person` out of it, into the brand-new objects.
+This will also create a new object (because you used { } (curly braces) ) and will then pull all properties of `person` out of it, into the brand-new objects.
+
+Note that this is not modifying the `person` object.
 
 <br>
 
@@ -879,12 +925,14 @@ Arrays:
 const hobbies = ["Sports", "Cooking"];
 const activeHobbies = ["Hiking"];
 
-// destructure = pulling elements of out the array, in this case into separate constants
+// destructure = pulling elements of out the array, in this case into separate constants/variables
 const [hobby1, hobby2] = hobbies;
 // basic syntax: const [] = arrToDestructure;
 
 console.log(hobbies, hobby1, hobby2);
-// output: Array ["Sports", "Cooking"] "Sports" "Cooking"
+// output:
+// Array ["Sports", "Cooking"]
+// "Sports" "Cooking"
 ```
 
 Objects:
@@ -898,11 +946,18 @@ let person = {
 const { fName, age } = person; // the values should be the same
 
 console.log({ fName, age }, person);
-// output: Object { fName: "Mark", age: 27 } Object { fName: "Mark", age: 27 }
+// output:
+// Object { fName: "Mark", age: 27 }
+// Object { fName: "Mark", age: 27 }
+
 
 // overwriting the name of the values:
-const { fName: userName, age } = person;
-console.log(userName, age); // changed the fName value to userName (this is JS syntax)
+
+// change fName property to userName property
+const { fName: userName, age } = person; ( >> this is JS syntax, this is not typing!! << )
+
+// changed the fName property to userName 
+console.log(userName, age);
 ```
 
 <br><br>
@@ -940,7 +995,9 @@ Classes: blueprints for objects
 
 <br>
 
-<small>(npm start & tsc -w)</small>
+<small>(start project in watch mode: npm start & tsc -w)</small>
+
+<br>
 
 ### **Creating a Class**
 
@@ -954,7 +1011,7 @@ class Department {
 }
 
 // creating instance of a class - object
-const accounting = new Department("Accounting"); // constructor arguments inside of ()
+const accounting = new Department("Accounting"); // constructor arguments inside of (parentheses) ()
 
 console.log(accounting);
 // output:
@@ -997,7 +1054,7 @@ In an event, `this` refers to the **element** that received the event (i.e. inpu
 
 ### **Constructor Functions & The "This" Keyword** <span id="a0503a"></span><a href="#top05a">&#8593;</a>
 
-**This** keyword typically refers to a concrete instance of a class that was created and with the dot notation you can access all the properties and methods of this instance (here this.name).
+**This** keyword typically refers to a concrete instance of a class that was created, and with the dot notation you can access all the properties and methods of this instance (here this.name).
 
 ```ts
 class Department {
@@ -1010,13 +1067,13 @@ class Department {
   // providing a "hint" for TypeScript (about what "this" is):
   describe(this: Department) {
     console.log("Department: " + this.name);
+    // this inside of describe() should always refer to an instance that's based
+    // on the Department class, so an object which will be type of Department
   }
-  // this iside of describe() should always refer to an instance that's based
-  // on the Department class, so an object which will be type of Department
 }
 
-// creating instance of a class - object
-const accounting = new Department("Accounting"); // constructor arguments inside of ()
+// creating an instance of a class - object
+const accounting = new Department("Accounting"); // constructor arguments inside of parentheses - ()
 
 accounting.describe();
 // output: Department: Accounting
@@ -1038,7 +1095,7 @@ public = accessible everywhere
 
 <br>
 
-private properties, public methods (usually with validation) to modify those properties.
+private properties with public methods (which usually have validation) to modify those properties.
 
 ### **"readonly" keyword** <span id="a0505a"></span><a href="#top05a">&#8593;</a>
 
@@ -1057,7 +1114,7 @@ The `SubClass`(child) inherits everything from the `BaseClass`(parent), even the
 
 <br>
 
-Whenever you want to use properties from the `BaseClass`, inside of `SubClass`, you have to add the `super()` method into the sub class' constructor. The `super()` method is used to get the properties of the base class.
+Whenever you want to use properties from the `BaseClass`, inside of `SubClass`, you have to add the `super()` keyword/method into the sub class' constructor. The `super()` method is used to get the properties of the base class.
 
 ```ts
 class SubClass extends BaseClass {
@@ -1069,7 +1126,7 @@ class SubClass extends BaseClass {
 
 <br>
 
-private methods/properties in base class are not accessible in sub class.
+private methods/properties of the base class are not accessible in the sub class.
 
 <br>
 
@@ -1092,7 +1149,7 @@ A getter always returns something
 Setter Synax:
 
 ```ts
-get someValueSetter(value: type) {
+set someValueSetter(value: someType) {
   if (!value) {
     throw new Error('Invalid value!');
   }
@@ -1104,7 +1161,7 @@ get someValueSetter(value: type) {
 
 ### **Static Methods & Properties** <span id="a0508a"></span><a href="#top05a">&#8593;</a>
 
-Those are used to modify classes without needing to instantiate it (e.g `Math` class (`Math.random()` etc)). So no need to use the `new` keyword in order to modify a class.
+Those are used to modify classes without needing to instantiate them (e.g `Math` class (`Math.random()`, etc)). So no need to use the `new` keyword in order to modify a class.
 
 <br>
 
@@ -1118,7 +1175,7 @@ static createEmployee(name: string) {
 const employee1 = Department.createEmployee('Mark');
 ```
 
-Though you can't access static properties/methods inside the class inside properties/methods that aren't static.
+Though you can't mix static and non static classes (possibly you won't be able to access some properties/methods of those).
 
 <br>
 
@@ -1126,7 +1183,21 @@ Though you can't access static properties/methods inside the class inside proper
 
 Syntax:
 
-`abstract someMethod(this: SomeClass): void;`
+```
+abstract class Person {
+    name: string;
+    
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    display(): void{
+        console.log(this.name);
+    }
+
+    abstract find(string): Person;
+}
+```
 
 <br>
 
@@ -1197,7 +1268,7 @@ Summary:
 
 <br>
 
-A class can implement `interface`'s features/properties and follow it's rules:
+A class can implement `interface`'s features (properties, methods, etc) and follow it's rules:
 
 ```typescript
 interface Greetable {
@@ -1210,14 +1281,15 @@ interface Greetable {
 class Person implements Greetable, AnotherInterface {
   name: string;
   // you can add more properties to this class:
-  age = 23;
+  age: number;
 
-  constructor(n: string) {
+  constructor(n: string, a: number) {
     this.name = n;
+    this.age = a;
   }
 
   greet(phrase: string) {
-    console.log(phrase + " " + this.name); // `this` in this case is a reference to the object
+    console.log(phrase + " " + this.name + " I am " + this.age + " years old"); // `this` in this case is a reference to the object
   }
 }
 ```
@@ -1258,7 +1330,7 @@ interface Person {
 
 <br>
 
-This works the same in classes:
+This aswell works in classes:
 
 ```typescript
 class Person implements Named {
