@@ -1095,7 +1095,7 @@ public = accessible everywhere
 
 <br>
 
-private properties with public methods (which usually have validation) to modify those properties.
+private properties and public methods (which usually have validation) to modify those properties.
 
 ### **"readonly" keyword** <span id="a0505a"></span><a href="#top05a">&#8593;</a>
 
