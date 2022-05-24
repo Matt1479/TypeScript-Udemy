@@ -1404,7 +1404,8 @@ interface Employee {
   startDate: Date; // Date Type == JavaScript Date() Object
 };
 
-interface ElevatedEmployee extends Employee, Admin {}
+interface ElevatedEmployee extends Employee, Admin {
+}
 
 const e1: ElevatedEmployee = {
   name: 'Mark',
