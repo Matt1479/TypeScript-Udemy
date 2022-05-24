@@ -1712,7 +1712,7 @@ Overload basically means that there are many other ways of calling a certain fun
 
 Optional chaining is used when you're not sure whether a certain property on an object is set or if it's undefined.
 
-For example we're fetching this data from backend:
+For example, let's say we're fetching this data from backend:
 
 ```ts
 const fetchedUserData = {
