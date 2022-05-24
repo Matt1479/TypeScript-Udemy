@@ -1354,7 +1354,7 @@ class Person implements Named {
 
 <br><br>
 
-1. <a href="#a0600">Intersection Types.</a>
+1. <a href="#a0600">Intersection Types.</a> and <a href="#a060x">Extends vs Implements</a>
 2. <a href="#a0601">Type Guards.</a>
 3. <a href="#a0602">Discriminated Unions</a>
 4. <a href="#a0603">Type Casting</a>
@@ -1432,7 +1432,7 @@ in Summary:
 
 <br><br>
 
-### **Extends VS implements**
+### **Extends VS implements**  <span id="a060x"></span><a href="#top06">&#8593;</a>
 
 <br>
 
