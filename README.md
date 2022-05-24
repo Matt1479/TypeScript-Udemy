@@ -1432,6 +1432,27 @@ in Summary:
 
 <br><br>
 
+### **Extends VS implements**
+
+<br>
+
+`extends`: The child class (which is extended) will inherit all the properties and methods of the class it extends
+
+`implements`: The class which uses the implements keyword will need to implement all the properties and methods of the class which it implements
+
+To put in simpler terms:
+
+`extends`: Here you get all these methods/properties from the parent class so you don't have to implement this yourself
+
+`implements`: Here is a contract which the class has to follow. The class has to implement at least the following methods/properties
+
+<br>
+
+<small><a href="https://stackoverflow.com/questions/38834625/whats-the-difference-between-extends-and-implements-in-typescript">more about extends vs implements it here</a>
+
+
+<br><br>
+
 ### **Type Guards** <span id="a0601"></span><a href="#top06">&#8593;</a>
 
 Type guards help us with union types. They are used to know which exact type you're getting now, at a runtime.
