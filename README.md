@@ -1,6 +1,32 @@
-# TypeScript-Udemy Notes
+# TypeScript Notes (Udemy)
 
-## **Section 01: Getting Started** <span id="top01"></span>
+<br>
+
+<nav>
+
+## Navigation <span id="nav"></span>
+
+### <a href="#top01">**Section-01**</a>
+
+### <a href="#top02">**Section-02**</a>
+
+### <a href="#top03">**Section-03**</a>
+
+### <a href="#top04">**Section-04**</a>
+
+### <a href="#top05">**Section-05**</a>
+
+### <a href="#top06">**Section-06**</a>
+
+### <a href="#top07">**Section-07**</a>
+
+### <a href="#top08">**Section-08**</a>
+
+</nav>
+
+<br><hr><br>
+
+## **Section 01: Getting Started** <a href="#nav">&#8593;</a> <span id="top01"></span>
 
 <br><br>
 
@@ -60,7 +86,7 @@ Compile the .ts file: tsc file.ts
 
 <br><br>
 
-## **Section 02: TypeScript Basics & Basic Types** <span id="top02"></span>
+## **Section 02: TypeScript Basics & Basic Types** <a href="#nav">&#8593;</a> <span id="top02"></span>
 
 <br><br>
 
@@ -224,14 +250,13 @@ So you have an object type in an object type so to say.
 #### Type **array**
 
 ```ts
-[1, 2, 3]
-
-['a', 'b', 'c']
+[1, 2, 3][("a", "b", "c")];
 ```
 
 Any JavaScript array, type can be flexible or strict (regarding the element types)
 
 Declaring a string array:
+
 ```
 ts let strArr: string[];
 ```
@@ -255,7 +280,7 @@ ts let strArr: string[];
 #### Type tuple
 
 ```ts
-const tupleArr = [1, 2] // fixed type (number) & fixed length (2 elements)
+const tupleArr = [1, 2]; // fixed type (number) & fixed length (2 elements)
 ```
 
 Tuple type is a fixed type array with fixed length
@@ -269,7 +294,7 @@ Tuple is good to use when you have exactly x amount of elements in an array and 
 For example you could limit it to 2 elements, where first element would be of type `number`, second element of type `string`:
 
 ```ts
-const mixedTupleArr = [1, 'abc'];
+const mixedTupleArr = [1, "abc"];
 ```
 
 <br>
@@ -290,7 +315,7 @@ example of enum syntax: `enum Role { ADMIN, READ_ONLY, AUTHOR }` (index: ADMIN =
 
 Any kind of value, no specific type assignment
 
-Avoid this type at all costs. 
+Avoid this type at all costs.
 
 <br><br>
 
@@ -319,6 +344,7 @@ Exact value, like `const number2 = 2.8;`, so it's not just a number, but a speci
 or `const stringLiteral = 'some string value';`
 
 Adding a + in front of each variable converts it into a number type:
+
 ```ts
 return +num1 + +num2; // those variables are going to be a type of number
 ```
@@ -328,9 +354,11 @@ return +num1 + +num2; // those variables are going to be a type of number
 **Type Aliases / Custom Types** <span id="a0206"></span><a href="#top02">&#8593;</a>
 
 With Aliases you can create your own types:
+
 ```ts
 type Combinable = number | string;
 ```
+
 (and any type setup, including literal types, object types, any kind of types, though do not mix primitives with referece types)
 
 It could save some extra code.
@@ -343,7 +371,7 @@ Type aliases can be used to "create" your own types. You're not limited to stori
 
 ```ts
 type User = { name: string; age: number };
-const u1: User = { name: 'Mark', age: 30 }; // this works!
+const u1: User = { name: "Mark", age: 30 }; // this works!
 ```
 
 This allows you to avoid unnecessary repetition and manage types centrally.
@@ -480,7 +508,7 @@ let userInput: unknown;
 let userName: string;
 
 userInput = 5;
-userInput = 'Bob';
+userInput = "Bob";
 
 // this needs extra type checking, otherwise it'll throw an error
 if (typeof userInput === `string`) {
@@ -512,7 +540,7 @@ Having utility functions like this can be pretty useful in bigger applications, 
 
 <br><br>
 
-## **Section 03: The TypeScript Compiler (and its Configuration)** <span id="top03"></span>
+## **Section 03: The TypeScript Compiler (and its Configuration)** <a href="#nav">&#8593;</a> <span id="top03"></span>
 
 <br>
 
@@ -747,7 +775,7 @@ These links might also be interesting:
 
 <br><br>
 
-## **Section 04: Next-generation JavaScript and TypeScript** <span id="top04"></span>
+## **Section 04: Next-generation JavaScript and TypeScript** <a href="#nav">&#8593;</a> <span id="top04"></span>
 
 <br>
 
@@ -956,7 +984,7 @@ console.log({ fName, age }, person);
 // change fName property to userName property
 const { fName: userName, age } = person; ( >> this is JS syntax, this is not typing!! << )
 
-// changed the fName property to userName 
+// changed the fName property to userName
 console.log(userName, age);
 ```
 
@@ -966,7 +994,7 @@ console.log(userName, age);
 
 <br><br>
 
-## **Section-05: Classes & Interfaces** <span id="top05"></span>
+## **Section-05: Classes & Interfaces** <a href="#nav">&#8593;</a> <span id="top05"></span>
 
 <br><br>
 
@@ -1186,7 +1214,7 @@ Syntax:
 ```
 abstract class Person {
     name: string;
-    
+
     constructor(name: string) {
         this.name = name;
     }
@@ -1350,7 +1378,7 @@ class Person implements Named {
 
 <br><br>
 
-## **Section 06: Advanced Types** <span id="top06"></span>
+## **Section 06: Advanced Types** <a href="#nav">&#8593;</a> <span id="top06"></span>
 
 <br><br>
 
@@ -1433,7 +1461,7 @@ in Summary:
 
 <br><br>
 
-### **Extends VS implements**  <span id="a060x"></span><a href="#top06">&#8593;</a>
+### **Extends VS implements** <span id="a060x"></span><a href="#top06">&#8593;</a>
 
 <br>
 
@@ -1450,7 +1478,6 @@ To put in simpler terms:
 <br>
 
 <small><a href="https://stackoverflow.com/questions/38834625/whats-the-difference-between-extends-and-implements-in-typescript">more about extends vs implements it here</a>
-
 
 <br><br>
 
@@ -1789,7 +1816,7 @@ console.log(storedData);
 
 <br><br>
 
-## **Section 07: Generics** <span id="top07"></span>
+## **Section 07: Generics** <a href="#nav">&#8593;</a> <span id="top07"></span>
 
 <br>
 
@@ -2144,3 +2171,805 @@ Generics <a href="https://www.typescriptlang.org/docs/handbook/2/generics.html">
 <hr>
 
 <br><br>
+
+## **Section 08: Decorators** <a href="#nav">&#8593;</a> <span id="top08"></span>
+
+<br>
+
+1. <a href="#a0800">A First Class Decorator</a>
+2. <a href="#a0801">Working with Decorator Factories</a>
+3. <a href="#a0802">Building More Useful Decorators</a>
+4. <a href="#a0803">Adding Multiple Decorators</a>
+5. <a href="#a0804">Diving into Property Decorators</a>
+6. <a href="#a0805">Accessor & Parameter Decorators</a>
+7. <a href="#a0806">When do Decorators Execute?</a>
+8. <a href="#a0807">Returning (and changing) a Class in a Class Decorator</a>
+9. <a href="#a0808">Other Decorator Return Types</a>
+10. <a href="#a0809">Property Descriptor (JS)</a>
+11. <a href="#a0810">Creating an "Autobind" Decorator</a>
+12. <a href="#a0811">Validation with Decorators - First Steps</a>
+13. <a href="#a0812">Validation with Decorators - Finished</a>
+14. <a href="#a0813">Useful Resources & Links</a>
+
+<br><br>
+
+<br>
+
+<br><br>
+
+### **A First Class Decorator** <span id="a0800"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+**Meta-Programming** - you use somebody's else code without knowing exactly how it works, all you need to know is how to use it (e.g. DOM API, jQuery, etc).
+
+<br>
+
+Setup: `tsconfig.json`:
+
+```json
+"compilerOptions": {
+  "target": "es6",
+  "experimentalDecorators": true
+}
+```
+
+<br>
+
+`Decorator` is a `function` you apply to something (i.e. a `class`) in a certain way.
+
+<br>
+
+The naming convention: Camel Case, e.g.: `function MyDecoratorFunction(args) { ... }`
+
+```ts
+// creating a Decorator function
+// decorators receive arguments:
+function Logger(constructor: Function) {
+  // ( constructor - formerly target (naming) )
+  console.log('Logging...');
+  console.log(constructor);
+}
+
+// applying the Decorator function to a class
+// @Logger() points to a decorator, it does not execute it
+@Logger()
+class Person {
+  name = 'Mark';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const person1 = new Person();
+
+console.log(person1);
+
+
+// decorator output:
+'Logging...'
+class Person {
+  constructor() {
+    this.name = 'Mark';
+    console.log('Creating person object...');
+  }
+}
+// class logging output:
+'Creating person object...'
+Person {name: 'Mark'};
+```
+
+Note that the `Decorator` output is printed first before we see `'Creating person object...' `and our `Person object`. Decorators execute when your **class is defined**, not when it is instantiated. Decorators run when JavaScript finds your `class` definition (`constructor` function definition), not when you use that `constructor` function to instantiate an object.
+
+<br><br>
+
+### **Working with Decorator Factories** <span id="a0801"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+Another way of creating a `Decorator` - using a `Decorator Factory`.
+
+`Decorator factory` returns a `decorator` function, and allows us to configure it when we assign it as a `decorator` to something.
+
+<br>
+
+```ts
+// a different type of defining a decorator function - with custom argument(s)
+function Logger(logString: string) {
+  // defining a factory (anonymus function)
+  return function (constructor: Function) {
+    // show logString
+    console.log(logString);
+    // we're executing a function that will return decorator
+    console.log(constructor);
+  };
+}
+
+// with factories you can use custom argument(s) (value)
+@Logger("LOGGING - PERSON")
+class Person {
+  name = "Mark";
+
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+
+const person1 = new Person();
+
+console.log(person1);
+```
+
+The advantage of that is now we can pass in values which will be used by that inner `returned` `decorator` function.
+
+<br><br>
+
+### **Building More Useful Decorators** <span id="a0802"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+A `decorator` function using a template:
+
+```ts
+function WithTemplate(template: string, hookId: string) {
+  // returning a function - the actual Decorator
+  // underscore in place of argument - it signals that you don't need this argument
+  // but it's required to have an argument
+  return function (_: Function) {
+    // return function(constructor: any) { // rendering p.name //
+    // rendering HTML by using a decorator
+    const hookEle = document.getElementById(hookId);
+
+    // create a new person: //
+    // const p = new constructor(); //
+    if (hookEle) {
+      hookEle.innerHTML = template;
+      // displaying the p.name value in the template: //
+      // hookEle.querySelector('h1')!.textContent = p.name; //
+    }
+  };
+}
+
+@WithTemplate("<h1>My Person Object</h1>", "app")
+class Person {
+  name = "Mark";
+
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+```
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"><!-- template rendering here --></div>
+</body>
+</html>
+```
+
+Angular uses `Decorators`, like for example `@Component` decorator to allow you to pass in an object where you specify things like the `template` for this `Component`, and the `selector` in the DOM where this template should be rendered.
+
+<br>
+
+This is relatively close to what we defined in `WithTemplate` decorator: a `template` and then a place where it should be rendered (`hookId` / `'app'`). Of couse Angular decorators are more advanced, nonetheless the core idea is the same. Angular gives you decorators, so that you can specify some HTML code (in the `template` property of `@Component` decorator) which can be connected to your Component class (`export class AppComponent`) that will be rendered to the DOM when this (`AppComponent`) Component gets rendered.
+
+<br><br>
+
+### **Adding Multiple Decorators** <span id="a0803"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+You can add more than one Decorators to a class or anywhere else where you can use a decorator:
+(for code reference check the previous sub-sections)
+
+<br>
+
+```ts
+@Logger("LOGGING")
+@WithTemplate("<h1>My Person Object</h1>", "app")
+class Person {
+  name = "Mark";
+
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+```
+
+The order of executing multiple decorators: from the bottom to top, which means in this case `@WithTemplate` executes first, then `@Logger` after it. In the case of factories - the `@Logger` would be executed first, and `@WithTemplate` second.
+
+<br>
+
+In short: Decorators execute bottom-up, factories execute up-bottom.
+
+<br><br>
+
+### **Diving into Property Decorators** <span id="a0804"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+Another place where you can add `Decorator` - `property` of a `class`.
+
+<br>
+
+```ts
+// creating a decorator which is going to be added to a property,
+// it needs the property arguments (target, propertyName)
+// target: any - because it could be either the prototype (instance of accessor),
+// or a constructor function
+// reminder: a prototype is similar to class,
+// in actuality the class is just syntactic sugar,
+// and underneath it is the prototype (of a function/object/array/etc.)
+function Log(target: any, propertyName: string | Symbol) {
+  console.log("Property decorator!");
+  console.log(target, propertyName);
+}
+
+class Product {
+  // adding decorator to the property:
+  @Log
+  title: string;
+  private _price: number;
+
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error("Invalid price - should be positive");
+    }
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  getPriceWithTax(tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+```
+
+This `decorator` will execute when JavaScript registers the `class` definion, when you define this (`@Log`) property to JavaScript as part of your class.
+
+<br><br>
+
+### **Accessor & Parameter Decorators** <span id="a0805"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+Besides `properties` you can also add `decorators` to `Accessors` (setters/getters), methods, and to a parameter:
+
+```ts
+// function Log(target: any, propertyName: string | Symbol) {
+//   console.log("Property decorator!");
+//   console.log(target, propertyName);
+// }
+
+// Accessor decorator: 3 arguments (target, name(of the accessor), descriptor)
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log("Accessor decorator!");
+  console.log(target, name, descriptor);
+}
+
+// Method decorator: 3 arguments (target, name(of the method), descriptor) - the same as Accessor decorator
+function Log3(
+  target: any,
+  name: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  console.log("Method decorator!");
+  console.log(target, name, descriptor);
+}
+
+// Paramter Decorator: - arguments (target, name(of the method), position(of this argument))
+// position - a number of argument, e.g. tax argument is the first arg (of index 0)
+function Log4(target: any, name: string | Symbol, position: number) {
+  console.log("Parameter decorator!");
+  console.log(target, name, position);
+}
+
+class Product {
+  // @Log
+  title: string;
+  private _price: number;
+
+  @Log2
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error("Invalid price - should be positive");
+    }
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+```
+
+<br><br>
+
+### **When do Decorators Execute?** <span id="a0806"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+Note: `decorator` is a function that executes when your `class` is defined, not when it is instantiated.
+
+<br><br>
+
+### **Returning (and changing) a Class in a Class Decorator** <span id="a0807"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+```ts
+function WithTemplate(template: string, hookId: string) {
+  console.log("TEMPLATE FACTORY");
+  return function <T extends { new (...args: any[]): { name: string } }>(
+    originalConstructor: T
+  ) {
+    // returning constructor function - replacing the class with a custom class
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super();
+
+        console.log("Rendering template");
+        const hookEl = document.getElementById(hookId);
+
+        const p = new originalConstructor();
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector("h1")!.textContent = this.name;
+        }
+      }
+    };
+  };
+}
+
+@WithTemplate("<h1>My Person Object</h1>", "app")
+class Person {
+  name = "Mark";
+
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+
+const person = new Person();
+console.log(person);
+```
+
+The underscore parameter (`_`) tells TypeScript that you won't use this parameter, but it needs to be there in order to fullfill the requirements (that this constructor function has to have a parameter);
+
+<br><br>
+
+### **Other Decorator Return Types** <span id="a0808"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+Decorators that can return values: Accessor `Decorators` & Method `Decorators`.
+
+<br>
+
+On Accessor `Decorators` & Method `Decorators` you can return `property descriptor`.
+
+<br>
+
+Decorators that can't return values (will be ignored): Property & Parameter `Decorators`.
+
+<br>
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">More on Property Descriptors</a>
+
+<br>
+
+**Property Descriptor (in JS)**: <span id="a0809"></span><a href="#top08">&#8593;</a>
+
+`Property Descriptor` - extra information about properties inside of `Objects`.
+
+<br>
+
+| Property Descriptors Methods and Usage              |
+| --------------------------------------------------- |
+| Object.defineProperty(obj, propName, {} )           |
+| Object.defineProperties(obj, props)                 |
+| Object.getOwnPropertyNames(obj)                     |
+| Object.getOwnPropertyDescriptor(obj, prop)          |
+| Object.getOwnPropertyDescriptors(obj)               |
+| Object.keys(obj) - list of enumerable properties    |
+| Object.values(obj) - list of enumerable prop values |
+
+<br>
+
+|                                |                                      |
+| ------------------------------ | ------------------------------------ |
+| obj.propertyIsEnumerable(prop) | Check if this property is enumerable |
+| obj.hasOwnProperty(prop)       | Check if variable has a property     |
+
+<br>
+
+| Objects can be                                   |
+| ------------------------------------------------ |
+| 1. Extensible - new properties can be added      |
+| 2. Frozen - props cannot be changed in any way   |
+| 3. Sealed - props can't be deleted or configured |
+| but are still writable                           |
+
+<br>
+
+|                               |              |
+| ----------------------------- | ------------ |
+| Object.isExtensible(obj)      | Check if ... |
+| Object.isFrozen(obj)          |
+| Object.isSealed(obj)          |
+| Object.preventExtensions(obj) |
+| Object.freeze(obj)            |
+| Object.seal(obj)              |
+
+<br>
+
+| Object PROPERTIES can be                          |
+| ------------------------------------------------- |
+| 1. Writable - change the value                    |
+| 2. Enumerable - seen through a for...in loop      |
+| 3. Configurable - change the property descriptors |
+
+<br>
+
+| Descriptor Groups                        |                                                     |
+| ---------------------------------------- | --------------------------------------------------- |
+| DATA                                     | ACCESSOR                                            |
+| value (of property - e.g. `obj.name`)    | get (get method - reading the value of a property)  |
+| writable (can change the value)          | set (set method - updating the value of a property) |
+| configurable (can change properties)     | configurable (can change properties)                |
+| enumerable (can loop through properties) | enumerable (can loop through properties)            |
+
+<br>
+
+```js
+let log = console.log;
+let obj = {
+  name: "Bob",
+  age: 45,
+};
+
+// defining property descriptors (value, writable, configurable, enumerable)
+Object.defineProperty(obj, 'test', {
+  value: 'testValue',
+  writable: true,
+  configurable: true,
+  // enumerable: false meaning that it'll be locked from looping through
+  enumerable: false;
+});
+
+//
+Object.defineProperty(obj, 'frank', {
+  configurable: true,
+  enumerable: true,
+  // this refering to obj
+  // value refering to value that's inside of an object
+  get: () => this.value,
+  set: (_val) => {
+    this.value = _val;
+  }
+});
+
+
+for (let prop in obj) {
+  log(prop);
+}
+log( obj, obj.test, obj.frank );
+obj.frank = 'frankValue';
+log(obj.frank);
+```
+
+<br><br>
+
+### **Example: Creating an "Autobind" Decorator** <span id="a0810"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Understanding TypeScript</title>
+  <script src="dist/app.js" defer></script>
+</head>
+<body>
+  <div id="app"></div>
+  <button>Click me</button>
+</body>
+</html>
+```
+
+```ts
+// creating a method decorator which automatically binds the method
+// to the surrounding class
+// (the object this method belongs to everytime it's called, no matter where we call it)
+function AutoBind(
+  // target: any,
+  _: any, // formerly target: any
+  // methodName: string,
+  _2: string, // formerly methodName: string
+  descriptor: PropertyDescriptor
+) {
+  // target: any (constructor function OR prototype)
+
+  // accessing the original method (showMessage) - using a PropertyDescriptor (JS thing)
+  const originalMethod = descriptor.value;
+
+  // replacing the old descriptor with a new one - that has get() method
+  const adjustedDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      // this will refer to the object that triggered the get() method
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    },
+  };
+  // decorator function returning a descriptor object
+  return adjustedDescriptor;
+}
+
+class Printer {
+  message = "This works!";
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer();
+
+const button = document.querySelector("button")!;
+button.addEventListener("click", p.showMessage);
+```
+
+<br><br>
+
+### **Validation with Decorators - First Steps** <span id="a0811"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding TypeScript</title>
+    <script src="dist/app.js" defer></script>
+</head>
+<body>
+    <form>
+      <input type="text" placeholder="Course title" id="title">
+      <input type="text" placeholder="Course price" id="price">
+      <button type="submit">Save</button>
+    </form>
+</body>
+</html>
+```
+
+```ts
+// --- An example of validator Decorators ---
+// --- for example you'd just import those and implement them in your project ---
+
+function Required() {}
+
+function PositiveNumber() {}
+
+// this function applies validation to objects
+function validate(obj: object) {}
+
+class Course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector("form")!;
+courseForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const titleEl = document.getElementById("title") as HTMLInputElement;
+  const priceEl = document.getElementById("price") as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value; // +priceEl.value - converting it to a number
+
+  const createdCourse = new Course(title, price);
+
+  if (!validate(createdCourse)) {
+    alert("Invalid input, please try again!"); // or: throw new error('Invalid input...');
+    return; // continue
+  }
+  console.log(createdCourse);
+});
+```
+
+<br><br>
+
+### **Validation with Decorators - Finished** <span id="a0812"></span><a href="#top08">&#8593;</a>
+
+<br>
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding TypeScript</title>
+    <script src="dist/app.js" defer></script>
+</head>
+<body>
+    <form>
+      <input type="text" placeholder="Course title" id="title">
+      <input type="text" placeholder="Course price" id="price">
+      <button type="submit">Save</button>
+    </form>
+</body>
+</html>
+```
+
+```ts
+// ---
+
+interface ValidatorConfig {
+  // index type notation:
+  [property: string]: {
+    [validatableProperty: string]: string[] // e.g. ['required', 'positive']
+  }
+}
+
+// registered validators - initially an empty object, since initially when the app starts,
+// our 3rd party library gets loaded no validators have been registered yet
+const registeredValidators: ValidatorConfig = {};
+
+// property decorator function: 2 args target (constructor or prototype), property name
+function Required(target: any, propName: string) {
+  // target.constructor.name - course name (class name)
+  registeredValidators[target.constructor.name] = {
+    // copy the other validators and put them inside of this array, then add 'required' to that array
+    // ?? - Nullish Coalescing operator
+    ...registeredValidators[target.constructor.name],
+    [propName]: [...(registeredValidators[target.constructor.name]?.[propName] ?? []), 'required'];
+  };
+}
+
+function PositiveNumber(target: any, propName: string) {
+    registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [...(registeredValidators[target.constructor.name]?.[propName] ?? []), 'positive'];
+  }
+}
+
+// this function applies validation to objects - it runs through all registered validators,
+// then it runs different logic based on which validators it finds
+// changing obj type to any to be able to accept any object which gives us flexibility
+function validate(obj: any) {
+  const objValidatorConfig = registeredValidators[obj.constructor.name];
+
+  // if we don't have any validator config
+  // return true since it is valid - there is nothing to validate so the object certainly is valid
+  if (!objValidatorConfig) {
+    return true;
+  }
+
+  let isValid = true;
+
+  // if we do find it then... loop through all properties
+  for (const prop in objValidatorConfig) {
+    // console.log(prop);
+
+    // loop through array of validators
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          // !! operator (double bang operator) - converts object into (boolean): true or false values (truthy/falsey)
+          // isValid and obj[prop] - both have to be true/truthy
+          isValid = isValid && !!obj[prop];
+          break;
+        case 'positive':
+          // isValid and obj[prop] > 0 - both have to be true/truthy
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  // // if we make past the for loop (most likely in case of ill defined loop, empty values etc), return true as a default
+  // return true;
+
+  // now we ensure that all properties are checked and not just the first one
+  return isValid;
+}
+
+class Course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector("form")!;
+courseForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const titleEl = document.getElementById("title") as HTMLInputElement;
+  const priceEl = document.getElementById("price") as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value; // +priceEl.value - converting it to a number
+
+  const createdCourse = new Course(title, price);
+
+  if (!validate(createdCourse)) {
+    alert("Invalid input, please try again!"); // or: throw new error('Invalid input...');
+    return; // continue
+  }
+  console.log(createdCourse);
+});
+```
+
+<br>
+
+<small> (I don't advise using this code in a real application, this is just a demo, you could use for example: <a href="https://github.com/typestack/class-validator">ts class validator</a>, or Angular's validators, NestJS' validators) </small>
+
+<br>
+
+The double bang operator - `!!` - Converts `Object` to `boolean`. If it was falsey (e.g. `0`, `null`, `undefined`, etc.), it will be `false`, otherwise, `true`.
+
+<br>
+
+Keep in mind that all the `decorators`, the validate function and the registry (`registeredValidators`) would be hidden away from you, that could be a part of 3rd party library, then you'd just import the `decorators`, add them to properties, and call validate (fn).
+
+<br><br>
+
+Useful Resources & Links: <span id="a0813"></span><a href="#top08">&#8593;
+
+More on `Decorators`: <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">Decorators - Handbook</a>
+
+Nest JS - A Node.js framework (server side) which utilizes TypeScript: <a href="https://nestjs.com">NestJS.com</a>
+
+<br><br>
+
+<hr>
+
+<br><br>
+
+## **Section 0X** <a href="#nav">&#8593;</a> <span id="top0x"></span>
+
+<br>
