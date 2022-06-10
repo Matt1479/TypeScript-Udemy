@@ -90,7 +90,7 @@ interface Test<T, Y, U, I> {
   isAdmin: I;
 }
 
-type newType = Test<number, string, string, boolean>;
+type NewType = Test<number, string, string, boolean>;
 
 const user: newType = {
   id: 0,
@@ -108,9 +108,9 @@ interface Test1<T, Y> {
   isAdmin: boolean;
 }
 
-type newType1 = Test1<string, number>;
+type NewType1 = Test1<string, number>;
 
-const user1: newType1 = {
+const user1: NewType1 = {
   id: 1,
   position: "Admin",
   date: 1653131495, // Unix
