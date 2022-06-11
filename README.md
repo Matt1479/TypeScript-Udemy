@@ -22,6 +22,14 @@
 
 ### <a href="#top08">**Section-08**</a>
 
+...
+
+### <a href="#top10">**Section-10**</a>
+
+### <a href="#top11">**Section-11**</a>
+
+### <a href="#top12">**Section-12**</a>
+
 </nav>
 
 <br><hr><br>
@@ -2996,9 +3004,9 @@ Nest JS - A Node.js framework (server side) which utilizes TypeScript: <a href="
   - Use "namespace" code syntax to group code - then you can import those "namespaces" to other files
   - Per-file or bundled compilation is possible (less imports to manage)
 - ES6 Imports/Exports - a modern way of importing files
-- Use ES6 import/export syntax
-- Per-file compilation, but single &lt;script&gt; import
-- Bundling via third-party tools (e.g. Webpack) is possible!
+  - Use ES6 import/export syntax
+  - Per-file compilation, but single &lt;script&gt; import
+  - Bundling via third-party tools (e.g. Webpack) is possible!
 
 File Bundling - compile multiple files/code into one.
 
@@ -3046,11 +3054,11 @@ namespace App {
 ```
 
 ```json
-// tsconfig.json
+/* tsconfig.json */
   "module": "amd"
-//...
+/* ... */
   "outFile": "./dist/bundle.js",
-//...
+/* ... */
 ```
 
 ```html
@@ -3112,7 +3120,7 @@ those imports, for example:
 /// <reference path="../modules/etc.ts" />
 ```
 
-Though it's not a must.
+This is optional though.
 
 <br><br>
 
@@ -3129,13 +3137,13 @@ To use ES Modules change the `tsconfig.json`:
 ```json
 {
   "compilerOptions": {
-    // ...
-    "target": "es6", // or higher
+    /* ... */
+    "target": "es6" /* or higher */,
     "module": "es2015"
-    // ...
+    /* ... */
   }
-  // comment out:
-  // "outFile": "./dist/bundle,js",
+  /* comment out: */
+  /* "outFile": "./dist/bundle,js", */
 }
 ```
 
@@ -3187,7 +3195,7 @@ export class SomeClass { ... };
 Importing stuff relatively:
 
 ```ts
-import { Component } from "./xyz.js"; // .js because it's compiled`;
+import { Component } from "./xyz.js"; // .js because it's compiled
 ```
 
 <br>
@@ -3211,7 +3219,7 @@ Grouping imports:
 
 ```ts
 import * as Validation from '..util/validation.js';
-// import everything as (alias) Alias
+// import everything as Alias
 
 // Then you call it like an object:
 Validation.Validatable = { ... };
@@ -3243,11 +3251,294 @@ export default class Component<T> { ... }
 import Component from './base-component.js';
 ```
 
-Not really recommended to do.
+Not recommended to do.
+
+<br>
+
+<a href="https://medium.com/computed-comparisons/commonjs-vs-amd-vs-requirejs-vs-es6-modules-2e814b114a0b">JavaScript Modules (Overview)</a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">More on ES Modules</a>
 
 <br>
 
 #### Note: Imported file/code runs only once, even if it's imported in many different files.
+
+<br><br>
+
+<hr>
+
+<br><br>
+
+## **Section 11: Using Webpack with TypeScript** <a href="#nav">&#8593;</a> <span id="top11"></span>
+
+<br>
+
+1. <a href="#a1100">What is Webpack & Why do we need it?</a>
+2. <a href="#a1101">Installing Webpack & Important Dependencies</a>
+3. <a href="#a1102">Adding Entry & Output Configuration</a>
+4. <a href="#a1104">Finishing the Setup & Adding webpack-dev-server</a>
+5. <a href="#a1105">Adding a Production Workflow</a>
+
+<br><br>
+
+<br>
+
+<br><br>
+
+### **What is Webpack & Why do we need it?** <span id="a1100"></span><a href="#top11">&#8593;</a>
+
+<br>
+
+The disadvantage of using ES6 Modules (splitting your code into separate files): Too many HTTP requests which is slowing down our app.
+
+<br>
+
+The solution: Webpack.
+
+<br>
+
+Webpack: <a href="webpack.js.org">Webpack.js.org</a>
+
+<br>
+
+#### What is Webpack?
+
+- Webpack is a Bundling & "Build Orchestration" Tool
+  - It's a tool that helps us reduce the HTTP requests by bundling code together,
+    so that we can write code split up across multiple files,
+    but Webpack then takes all these files and bundles them together.
+  - In addition Webpack is capable of doing more - it will also optimize our code and will also allow us
+    to add more build steps/tools
+
+| "Normal" Setup:                                      | With Webpack                                     |
+| ---------------------------------------------------- | ------------------------------------------------ |
+| - Multiple .ts files & imports (Http requests)       | Code bundles, less imports required              |
+| - Unoptimized code (not as small as possible)        | Optimized (minified) code, less code to download |
+| - "External" development server needed (lite server) | More build steps can be added easily             |
+
+<br><br>
+
+### **Installing Webpack & Important Dependencies** <span id="a1101"></span><a href="#top11">&#8593;</a>
+
+<br>
+
+Install the dependencies:
+
+`npm install --save-dev web webpack webpack-cli webpack-dev-server typescript ts-loader`
+
+<br>
+
+A good practice is to install a copy of TypeScript on each project,
+so you'll have a specific TypeScript version. The advantage is, is when
+you ever change your global TypeScript version, you won't break your
+project setup if there were breaking changes in TypeScript itself.
+So you lock-in a specific TS version in your project.
+
+<br><br>
+
+webpack + ts-loader: webpack can compile TS into JS,
+
+<br>
+
+webpack-dev-server + lite-server: running the app & applying changes
+
+<br>
+
+Webpack then bundles all the files into one code
+
+<br><br>
+
+### **Adding Entry & Output Configuration** <span id="a1102"></span><a href="#top11">&#8593;</a>
+
+<br>
+
+#### Project Configuration
+
+```json
+/* tsconfig.json */
+{
+  "compilerOptions": {
+    "target": "es6" /* or es5 */,
+    "module": "es2015" /* or es5 */,
+    "outDir": "./path" /* specify output directory */
+  },
+  /* ... */
+  "sourceMap": true
+}
+```
+
+<br>
+
+```js
+// webpack.config.js
+const path = require('path');
+
+module.exports = {
+  // specify the root file:
+  entry: "./src/app.ts",
+  output: {
+    // create hash for every build, can help with caching in the browser
+    // filename: 'bundle.[contenthash].js'
+    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'); // absolute path
+  },
+};
+```
+
+**Note**: When using Webpack, you have to remove .js extension from imports,
+e.g. `import Component from './base-component';`.
+
+<br><br>
+
+### **Adding TypeScript Support with the ts-loader Package** <span id="a1103"></span><a href="#top11">&#8593;</a>
+
+<br>
+
+```js
+// webpack.config.js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/app.ts",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  // entry - it tells webpack that there will be generated source maps
+  // it allows to wire up correctly to the bundle it generates
+  // it improves the development experience
+  devtool: "inline-source-map",
+  // specify what to do with TS files:
+  module: {
+    rules: [
+      {
+        test: /\.ts$/, // regex - check files that end with .ts
+        use: "ts-loader", // what to do with those files - ts-loader handles it
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    // look for .ts and .js files:
+    extensions: ["ts", ".js"],
+  },
+};
+```
+
+Set `"sourceMap": true` in `tsconfig.json` - it will help us debug our code.
+
+<br>
+
+Using Webpack:
+
+```json
+/* package.json */
+{
+  "scripts": {
+    /* ... */
+    "build": "webpack"
+  }
+}
+```
+
+Now build the app: `npm run build`. There should be bundle.js file in dist dir.
+
+<br>
+
+import the script file, and run the app the app: `npm start`.
+
+<br><br>
+
+### **Finishing the Setup & Adding webpack-dev-server** <span id="a1104"></span><a href="#top11">&#8593;</a>
+
+<br>
+
+```json
+/* package.json */
+{
+  "scripts": {
+    /* ... */
+    "start": "webpack-dev-server"
+  }
+}
+```
+
+<br>
+
+```js
+// webpack.config.js
+
+/* ... */
+module.exports = {
+  // set the development mode
+  mode: "development",
+  entry: "./src/app.ts",
+  output: {
+    // specify the output path
+    publicPath: "dist", // it detects changes and rebuilds/recompiles the app
+  },
+  /* ... */
+};
+```
+
+<br><br>
+
+### **Adding a Production Workflow** <span id="a1105"></span><a href="#top11">&#8593;</a>
+
+<br>
+
+Install plugins - clear up the dist folder whenever we re-build our project:
+
+`npm install --save-dev clean-webpack-plugin`
+
+<br>
+
+```js
+// webpack.config.prod.js
+const path = require("path");
+const ClearnPlugin = require("clean-webpack-plugin");
+
+module.exports = {
+  // set the production mode
+  mode: "production",
+  entry: "./src/app.ts",
+  output: {
+    // publicPath: "dist",
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  devtool: "none",
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ["ts", ".js"],
+  },
+  // apply to the whole project
+  plugins: [new CleanPlugin.CleanWebpackPlugin()],
+};
+```
+
+<br>
+
+```json
+/* package.json */
+{
+  "scripts": {
+    /* ... */
+    "build": "webpack --config webpack.config.prod.js"
+  }
+}
+```
+
+Now if you run `npm run build` it will build the project in production mode,
+and this file (`bundle.js`) together with your `index.html` file and the `app.css` file
+is what you would put onto a server if you want to deploy your application.
 
 <br><br>
 

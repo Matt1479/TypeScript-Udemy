@@ -92,7 +92,7 @@ interface Test<T, Y, U, I> {
 
 type NewType = Test<number, string, string, boolean>;
 
-const user: newType = {
+const user: NewType = {
   id: 0,
   position: "User",
   date: "5/21/2022",
