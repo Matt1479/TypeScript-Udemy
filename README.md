@@ -3545,3 +3545,188 @@ is what you would put onto a server if you want to deploy your application.
 <hr>
 
 <br><br>
+
+## **Section 12: 3rd Party Libraries & TypeScript** <a href="#nav">&#8593;</a> <span id="top12"></span>
+
+<br>
+
+1. <a href="#a1200">Using JavaScript (!) Libraries with TypeScript</a>
+2. <a href="#a1201">No Types Needed: class-transformer</a>
+3. <a href="#a1202">TypeScript-embracing: class-validator</a>
+
+<br><br>
+
+<br>
+
+<br><br>
+
+### **Using JavaScript (!) Libraries with TypeScript** <span id="a1200"></span><a href="#top12">&#8593;</a>
+
+<br>
+
+Utility library: <a href="https://lodash.com">Loadash</a>
+
+There you can find how to install it, you can use npm: `npm i --save loadash`
+
+```ts
+// app.ts:
+import _ from "loadash";
+
+console.log(_.shuffle([1, 2, 3]));
+```
+
+It won't work since Loadash uses JavaScript not TypeScipt,
+
+<br>
+
+To make it work install the Loadash types: `npm install --save-dev @types/loadash`
+
+<br>
+
+DefinitelyTyped GitHub repository: https://github.com/DefinitelyTyped/DefinitelyTyped,
+
+It's a huge repostory with tons of translations with all kinds of 3rd party libraries,
+for example here's the loadash dir: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash
+
+<br>
+
+The files inside of that repository contain instructions for TypeScript,
+to tell Typescript how something works and what's included in this package.
+
+<br>
+
+You can do that with any library, for example look for `jquery types`:
+
+https://www.npmjs.com/package/@types/jquery
+
+<br><br>
+
+#### Using "declare" as a "Last Resort"
+
+```html
+<script>
+  var GLOBAL = "abc";
+</script>
+```
+
+```ts
+declare var GLOBAL: any;
+
+console.log(GLOBAL):
+```
+
+<br><br>
+
+### **No Types Needed: class-transformer** <span id="a1201"></span><a href="#top12">&#8593;</a>
+
+<br>
+
+```ts
+// product.model.ts
+export class Product {
+  title: string;
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+
+  getInformation() {
+    return [this.title, `$${this.price}`];
+  }
+}
+```
+
+Manually transforming an array of objects:
+
+```ts
+// app.ts
+import { Product } from "./product.model";
+
+// products - data from backend
+const products = [
+  { title: "A Carpet", price: 29.99 },
+  { title: "A Book", price: 10.99 },
+];
+
+// const p1 = new Product("A Book", 12.99);
+
+const loadedProducts = products.map((prod) => {
+  return new Product(prod.title, prod.price);
+});
+
+for (const prod of loadedProducts) {
+  console.log(prod.getInformation());
+}
+```
+
+<br>
+
+It can be easier with Class-Transformer:
+
+`npm install class-transformer --save`
+
+`npm install reflect-metadata --save`
+
+then:
+
+`import "reflect-metadata";`
+
+<br>
+
+`import { plainToClass } from 'class-transformer';`
+
+<br>
+
+```ts
+// app.ts
+import { Product } from "./product.model";
+
+// const loadedProducts = plainToClass(ClassToTransform, DataToTransform);
+const loadedProducts = plainToClass(Product, products);
+
+for (const prod of loadedProducts) {
+  console.log(prod.getInformation());
+}
+```
+
+<br><br>
+
+### **TypeScript-embracing: class-validator** <span id="a1202"></span><a href="#top12">&#8593;</a>
+
+<br>
+
+https://www.npmjs.com/package/class-validator
+
+<br>
+
+```ts
+// product.model.ts
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validatior';
+import { validate } from 'class-validatior';
+
+export class Product {
+  @IsNotEmpty()
+  title: string;
+  @IsNumber()
+  @IsPositive()
+  price: number;
+
+  const newProd = new Product('', -5.99);
+  validate(newProd).then(errors => {
+    if (errors.length > 0) {
+      console.log('VALIDATION ERRORS!');
+      console.log(errors);
+    } else {
+      console.log(newProd.getInformation());
+    }
+  });
+}
+```
+
+<br><br>
+
+<hr>
+
+<br><br>
