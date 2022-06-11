@@ -257,8 +257,8 @@ Any JavaScript array, type can be flexible or strict (regarding the element type
 
 Declaring a string array:
 
-```
-ts let strArr: string[];
+```ts
+let strArr: string[];
 ```
 
 <br>
@@ -1096,7 +1096,7 @@ class Department {
   describe(this: Department) {
     console.log("Department: " + this.name);
     // this inside of describe() should always refer to an instance that's based
-    // on the Department class, so an object which will be type of Department
+    // on the Department class, so an object which will be of type Department
   }
 }
 
@@ -1211,19 +1211,19 @@ Though you can't mix static and non static classes (possibly you won't be able t
 
 Syntax:
 
-```
+```ts
 abstract class Person {
-    name: string;
+  name: string;
 
-    constructor(name: string) {
-        this.name = name;
-    }
+  constructor(name: string) {
+    this.name = name;
+  }
 
-    display(): void{
-        console.log(this.name);
-    }
+  display(): void {
+    console.log(this.name);
+  }
 
-    abstract find(string): Person;
+  abstract find(string): Person;
 }
 ```
 
@@ -1282,7 +1282,7 @@ You use `interface` not as a blueprint, but as a custom type.
 
 An `interface` can't have an initializer.
 
-You only specify the head of a Method in an `interface` with the types and return type.
+You only specify the head of a method in an `interface` with the types and return type.
 
 <br>
 
@@ -1597,6 +1597,7 @@ function MoveAnimal(animal: Animal) {
       break;
     case "horse":
       speed = animal.runningSpeed;
+      break;
   }
   console.log("Moving at speed: " + speed);
 }
@@ -1608,7 +1609,7 @@ moveAnimal({ type: "bird", flyingSpeed: 10 });
 
 ### **Type Casting** <span id="a0603"></span><a href="#top06">&#8593;</a>
 
-Type casting helps you tell TypeScript that some value is of a specific type where TypeScript is not able to detect it on it's own.
+Type casting helps you tell TypeScript that some value is of a specific type where TypeScript is not able to detect it on its own.
 
 Example:
 
@@ -1648,7 +1649,7 @@ const userInputElement = <HTMLInputElement>(
 
 // this is TypeScript only feature, works differently in JSX
 
-userInputElement.value = "hello";
+userInputElement.value = "hello"; // .value is .innerText/HTML etc
 ```
 
 Another method of doing this:
@@ -1698,7 +1699,7 @@ Function Overloads - a feature that allows us to define multiple function signat
 
 <br>
 
-Use it whenever TypeScript can't infer a type on it's own.
+Use it whenever TypeScript can't infer a type on its own.
 
 <br>
 
@@ -2201,7 +2202,7 @@ Generics <a href="https://www.typescriptlang.org/docs/handbook/2/generics.html">
 
 <br>
 
-**Meta-Programming** - you use somebody's else code without knowing exactly how it works, all you need to know is how to use it (e.g. DOM API, jQuery, etc).
+**Meta-Programming** - you use somebody's else code without knowing exactly how it works, or how it's written, all you need to know is how to use it (e.g. DOM API, jQuery, etc).
 
 <br>
 
@@ -2220,7 +2221,7 @@ Setup: `tsconfig.json`:
 
 <br>
 
-The naming convention: Camel Case, e.g.: `function MyDecoratorFunction(args) { ... }`
+The naming convention: UpperCamelCase, e.g.: `function MyDecoratorFunction(args) { ... }`
 
 ```ts
 // creating a Decorator function
@@ -2970,6 +2971,286 @@ Nest JS - A Node.js framework (server side) which utilizes TypeScript: <a href="
 
 <br><br>
 
-## **Section 0X** <a href="#nav">&#8593;</a> <span id="top0x"></span>
+## **Section 10: Modules & Namespaces** <a href="#nav">&#8593;</a> <span id="top10"></span>
 
 <br>
+
+1. <a href="#a1000">Writing Module Code - Your Options</a>
+2. <a href="#a1001">TS: Working with Namespaces</a>
+3. <a href="#a1002">JS: Using ES Modules - The modern & recommended way</a>
+4. <a href="#a1003">Understanding various Import & Export Syntaxes & Module Code Running</a>
+
+<br><br>
+
+<br>
+
+<br><br>
+
+### **Writing Module Code - Your Options** <span id="a1000"></span><a href="#top10">&#8593;</a>
+
+<br>
+
+#### Splitting Code Into Multiple Files
+
+- (TS Feature) Namespaces & File Bundling
+  - Use "namespace" code syntax to group code - then you can import those "namespaces" to other files
+  - Per-file or bundled compilation is possible (less imports to manage)
+- ES6 Imports/Exports - a modern way of importing files
+- Use ES6 import/export syntax
+- Per-file compilation, but single &lt;script&gt; import
+- Bundling via third-party tools (e.g. Webpack) is possible!
+
+File Bundling - compile multiple files/code into one.
+
+<br><br>
+
+### **Working with Namespaces** <span id="a1001"></span><a href="#top10">&#8593;</a>
+
+<br>
+
+#### Namespaces setup
+
+<br>
+
+#### **Namespaces / export**:
+
+```ts
+// my-interfaces.ts
+namespace App {
+  // App or any other name (has to be the same as in the reference(import) file)
+  // ...code goes here...
+  // exporting those so they can be used outside of this file
+  export interface Named {
+    outputName?: string;
+  }
+
+  export class MyClass {
+    // ...
+  }
+
+  export const strArr: Array<string> = [];
+}
+```
+
+#### **Namespaces / import**
+
+```ts
+// app.ts
+
+// importing namespaces:
+/// <reference path="my-interfaces.ts" />
+
+namespace App {
+  // ... all code goes here
+}
+```
+
+```json
+// tsconfig.json
+  "module": "amd"
+//...
+  "outFile": "./dist/bundle.js",
+//...
+```
+
+```html
+<!-- html file -->
+<script src="dist/bundle.js" defer></script>
+```
+
+Then after compiling the code (`tsc -w`), all the code goes into the `bundle.js` file.
+
+<br>
+
+You can (or should) also keep your files in separate folders to group them, and then import them with the correct path:
+
+```ts
+// in each item: (e.g. base-component.ts):
+namespace App {
+  export class SomeClass {...}
+  // ...code...
+}
+
+// in another item (not the base-component file), import the base component:
+/// <reference path="base-component" />
+namespace App {
+  export class SomeClass {...}
+  // ...code...
+}
+
+```
+
+```ts
+// app.ts - in this file you only import namespaces
+
+// importing namespaces:
+/// <reference path="dir/my-interfaces.ts" />
+
+// for example:
+/// <reference path="utils/validate.ts" />
+/// <reference path="decorators/autobind.ts" />
+
+// import all files from components directory:
+/// <reference path="components/base-component.ts" />
+/// <reference path="components/item.ts" />
+/// <reference path="components/etc.ts" />
+
+// ... code
+```
+
+If you want to possibly improve it - so you won't be importing
+all of the files in (one file) the app.ts file, you then
+should do separate imports in respective files that need
+those imports, for example:
+
+```ts
+// project-item.ts
+// would need those:
+/// <reference path="components/base-component.ts" />
+/// <reference path="../decorators/autobind.ts" />
+/// <reference path="../modules/project.ts" />
+/// <reference path="../modules/etc.ts" />
+```
+
+Though it's not a must.
+
+<br><br>
+
+### **Using ES Modules** <span id="a1002"></span><a href="#top10">&#8593;</a>
+
+<br>
+
+#### **Configuration**:
+
+<br>
+
+To use ES Modules change the `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "target": "es6", // or higher
+    "module": "es2015"
+    // ...
+  }
+  // comment out:
+  // "outFile": "./dist/bundle,js",
+}
+```
+
+In the html file, add the `type="module"` attribute to the script tag:
+
+```html
+<script type="module" src="dist/app.ts"></script>
+```
+
+<br>
+<br>
+
+```ts
+// sample-interface.ts:
+
+export interface Data {
+  // ...
+}
+
+export interface Data2 {
+  // ...
+}
+```
+
+```ts
+// another-file.ts
+
+// import an interface:
+import { Data } from "../path/sample-interface.js"; // (.js - compiled)
+```
+
+<br>
+
+Import Component module into files that need it:
+
+```ts
+// project-item.ts
+// import the base/root component
+import { Component } from './base-component.js';
+
+// import other stuff
+import { Validation, validate } from '../utils/validation.js';
+import { autobind } from '../decorators/autobind.js';
+
+// ...project-item code...
+export class SomeClass { ... };
+```
+
+Importing stuff relatively:
+
+```ts
+import { Component } from "./xyz.js"; // .js because it's compiled`;
+```
+
+<br>
+
+In the base-component/root component file - import all the components
+
+```ts
+import { ProjectItemOne } from "./components/project-item-one.js";
+import { ProjectItemTwo } from "./components/project-item-two.js";
+
+// ...
+```
+
+<br><br>
+
+### **Understanding various Import & Export Syntaxes** <span id="a1003"></span><a href="#top10">&#8593;</a>
+
+<br>
+
+Grouping imports:
+
+```ts
+import * as Validation from '..util/validation.js';
+// import everything as (alias) Alias
+
+// Then you call it like an object:
+Validation.Validatable = { ... };
+
+Validation.validate();
+```
+
+<br>
+
+You can also assign Alias like this:
+
+```ts
+import { autobind as AutoBind } from "../decorators/autobind.js";
+
+@AutoBind
+x() { ... }
+```
+
+<br>
+
+Default export (custom naming when importing):
+
+```ts
+// base-component.ts:
+export default class Component<T> { ... }
+
+// project-item.ts
+// import the default export of base-component.ts
+import Component from './base-component.js';
+```
+
+Not really recommended to do.
+
+<br>
+
+#### Note: Imported file/code runs only once, even if it's imported in many different files.
+
+<br><br>
+
+<hr>
+
+<br><br>
